@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Cytoscape Plug-in
+Bundle-SymbolicName: Cytoscape;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: plugin.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.pathwayeditor.application
+Eclipse-LazyStart: true
