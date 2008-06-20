@@ -6,7 +6,7 @@
          name="Cytoscape Context Adapter"
          point="org.pathwayeditor.application.contextAdapters">
       <context
-            class="uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterServiceProvider">
+            class="plugin.CytoscapeServiceProviderLoader">
       </context>
    </extension>
 </plugin>

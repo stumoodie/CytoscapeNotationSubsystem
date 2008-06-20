@@ -10,6 +10,7 @@ import org.pathwayeditor.contextadapter.publicapi.IContextAdapterAutolayoutServi
 import org.pathwayeditor.contextadapter.publicapi.IContextAdapterExportService;
 import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
 import org.pathwayeditor.contextadapter.publicapi.IContextAdapterValidationService;
+import org.pathwayeditor.contextadapter.publicapi.IValidationReport;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleDefinition;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralContext;
 
@@ -81,7 +82,7 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
 		}
 
-		public List getValidationReport() {
+		public IValidationReport getValidationReport() {
 			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
 		}
 
