@@ -1,5 +1,8 @@
 package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI;
 
+import java.util.List;
+import java.util.Set;
+
 import org.pathwayeditor.contextadapter.toolkit.ndom.IModelObject;
 
 public interface IGraph extends IModelObject{
@@ -14,6 +17,14 @@ public interface IGraph extends IModelObject{
 	 * @param src source node for new edge
 	 * @param target target node for new edge
 	 * creates a new edge between src and target node.
+	 * @param edge the link between the two nodes
 	 */
-	public void linkNodes(INode src,INode target);
+	public void linkNodes(INode src,INode target, IEdge edge);
+
+	/**
+	 * @return a flat list of all nodes in this graph
+	 */
+	public List<INode> getNodes();
+
+	public Set<IEdge> getEdges();
 }

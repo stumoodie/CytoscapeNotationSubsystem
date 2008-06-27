@@ -1,7 +1,7 @@
 package uk.ac.ed.inf.csb.BasicCytoscape1_0_0;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.pathwayeditor.businessobjectsAPI.IMap;
@@ -13,6 +13,11 @@ import org.pathwayeditor.contextadapter.publicapi.IContextAdapterValidationServi
 import org.pathwayeditor.contextadapter.publicapi.IValidationReport;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleDefinition;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralContext;
+
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.CytoscapeValidationService;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportAdapter;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportService;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
 
 public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdapterServiceProvider {
 	private static final String GLOBAL_ID = "uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscape";
@@ -31,11 +36,13 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 	}
 	private BasicCytoscapeContextAdapterSyntaxService syntaxService;
 	private IContext context;
+	private IContextAdapterValidationService cytoscapeValidationService;
 
 	public BasicCytoscapeContextAdapterServiceProvider() {
 		this.context = new GeneralContext(GLOBAL_ID, DISPLAY_NAME, NAME,
 				VERS[0], VERS[1], VERS[2]);
 		this.syntaxService = new BasicCytoscapeContextAdapterSyntaxService(this);
+		cytoscapeValidationService = new CytoscapeValidationService(this);
 	}
 	
 
@@ -43,14 +50,17 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 		return this.context;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set getExportServices() {
-		return Collections.emptySet();
+		return new HashSet(Collections.singletonList(new SIFExportService(this,new SIFExportAdapter<IGraph>())));
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set getImportServices() {
 		return Collections.emptySet();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set getPluginServices() {
 		return Collections.emptySet();
 	}
@@ -61,7 +71,7 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 
 
 	public IContextAdapterValidationService getValidationService() {
-		return new DefaultValidationService();
+		return cytoscapeValidationService;
 	}
 
 	public Set getConversionServices() {
@@ -70,61 +80,7 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 
 	public IContextAdapterAutolayoutService getAutolayoutService() {
 		return new DefaultAutolayoutService();
-	}
-
-	private class DefaultValidationService implements IContextAdapterValidationService {
-
-		public IContext getContext() {
-			return context;
-		}
-
-		public IMap getMapBeingValidated() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public IValidationReport getValidationReport() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public boolean hasMapBeenValidated() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public boolean hasWarnings() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public boolean isImplemented() {
-			return false;
-		}
-
-		public boolean isMapValid() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public boolean isReadyToValidate() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public void setMapToValidate(IMap mapToValidate) {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public void validateMap() {
-			throw new UnsupportedOperationException("Validation service has not been implemented for this context adapter");
-		}
-
-		public List<IValidationRuleDefinition> getRules() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public IContextAdapterServiceProvider getServiceProvider() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-	}
+	}	
 
 	private class DefaultAutolayoutService implements IContextAdapterAutolayoutService {
 

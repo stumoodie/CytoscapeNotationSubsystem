@@ -22,7 +22,7 @@ import org.pathwayeditor.contextadapter.toolkit.ctxdefn.ShapeObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.TextPropertyDefinition;
 
 public class BasicCytoscapeContextAdapterSyntaxService implements IContextAdapterSyntaxService {
-	static enum ObjectTypes {
+	public static enum ObjectTypes {
 		Node{public String toString(){return "10";}},
 		Edge{public String toString(){return "20";}},
 

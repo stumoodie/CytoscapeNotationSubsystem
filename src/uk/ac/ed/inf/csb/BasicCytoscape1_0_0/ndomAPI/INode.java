@@ -2,7 +2,9 @@ package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI;
 
 import java.util.Set;
 
-public interface INode {
+import org.pathwayeditor.contextadapter.toolkit.ndom.IModelObject;
+
+public interface INode extends IModelObject{
 	/**
 	 * @return name of this node
 	 * Contract:<br>
@@ -25,9 +27,18 @@ public interface INode {
 	public int getNumberOfConnections();
 	
 	/**
-	 * @return a set of all edges that touch this node.
+	 * @return a set of all edges that touch this node and regard it as a src.
 	 *  Contract:<br>
 	 *  If no edges touch the node returns the empty set, not null
 	 */
-	public Set <IEdge> getEdges();
+	public Set <IEdge> getSrcEdges();
+	
+	/**
+	 * @return a set of all edges that touch this node and regard it as a target.
+	 *  Contract:<br>
+	 *  If no edges touch the node returns the empty set, not null
+	 */
+	public Set <IEdge> getTargetEdges();
+	
+	
 }
