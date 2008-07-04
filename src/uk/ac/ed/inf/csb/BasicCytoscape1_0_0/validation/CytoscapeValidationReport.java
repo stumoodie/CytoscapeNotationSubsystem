@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation;
 
 import java.util.Date;
 import java.util.List;

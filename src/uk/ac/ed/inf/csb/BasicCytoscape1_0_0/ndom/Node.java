@@ -73,4 +73,8 @@ public class Node implements INode {
 		targetEdges.add(edge);
 	}
 
+	public int compareTo(INode o) {
+		return name.compareTo(o.getName());
+	}
+
 }

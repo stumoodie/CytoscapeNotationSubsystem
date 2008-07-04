@@ -2,9 +2,9 @@ package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI;
 
 import java.util.Set;
 
-import org.pathwayeditor.contextadapter.toolkit.ndom.IModelObject;
+import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
 
-public interface INode extends IModelObject{
+public interface INode extends INdomModel, Comparable<INode>{
 	/**
 	 * @return name of this node
 	 * Contract:<br>

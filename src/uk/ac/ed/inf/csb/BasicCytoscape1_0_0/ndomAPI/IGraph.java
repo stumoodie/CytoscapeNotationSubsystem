@@ -3,9 +3,9 @@ package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI;
 import java.util.List;
 import java.util.Set;
 
-import org.pathwayeditor.contextadapter.toolkit.ndom.IModelObject;
+import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
 
-public interface IGraph extends IModelObject{
+public interface IGraph extends INdomModel{
 	
 	/**
 	 * @param in

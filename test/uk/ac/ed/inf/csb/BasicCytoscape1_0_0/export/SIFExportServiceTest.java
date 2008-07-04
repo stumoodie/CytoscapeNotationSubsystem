@@ -14,26 +14,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pathwayeditor.businessobjectsAPI.IMap;
+import org.pathwayeditor.businessobjectsAPI.IRootMapObject;
 import org.pathwayeditor.contextadapter.publicapi.ExportServiceException;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
 import org.pathwayeditor.contextadapter.toolkit.ndom.ExportAdapterCreationException;
 import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
 
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.RootStub;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.StreamServiceStub;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.ContextValidationService;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IToolKitContextAdapterServiceProvider;
 
 @RunWith(JMock.class)
 public class SIFExportServiceTest {
 	Mockery mockery = new JUnit4Mockery();
-	private IContextAdapterServiceProvider contextService;
+	private IToolKitContextAdapterServiceProvider contextService;
 	private CytoscapeValidatorStub validator;
 	private IMap map;
 	private SIFExportService service;
 	private File exportFile;
+	private IRootMapObject root;
+	private ContextValidationService validationService;
 
 	@Before
 	public void setUp() {
-		contextService = mockery.mock(IContextAdapterServiceProvider.class);
+		contextService = mockery.mock(IToolKitContextAdapterServiceProvider.class);
 		exportFile = new File("");
 		mockery.checking(new Expectations() {
 			{
@@ -41,13 +46,16 @@ public class SIFExportServiceTest {
 			}
 		});
 		validator = new CytoscapeValidatorStub(contextService);
+		validationService = new ContextValidationService(contextService,validator);
+		map = mockery.mock(IMap.class);
+		root = new RootStub();
 		mockery.checking(new Expectations() {
+
 			{
-				atLeast(1).of(contextService).getValidationService();
-				will(returnValue(validator));
+				atLeast(1).of(contextService).getToolKitValidationService();
+				will(returnValue(validationService));
 			}
 		});
-		map = mockery.mock(IMap.class);
 		service = new SIFExportService(contextService, new SIFExportAdapter<IGraph>());
 		service.setStreamer(new StreamServiceStub());
 	}
@@ -55,7 +63,7 @@ public class SIFExportServiceTest {
 	@Test
 	public void testExportMapValidatesMap() throws ExportServiceException {
 		service.exportMap(map, exportFile);
-		assertTrue(validator.mapValidated);
+		assertTrue(validator.hasMapBeenValidated());
 	}
 
 	public void testExportCreatesDataStructureForWriting() throws IOException, ExportAdapterCreationException, ExportServiceException{

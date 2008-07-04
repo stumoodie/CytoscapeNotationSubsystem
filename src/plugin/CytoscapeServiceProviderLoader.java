@@ -1,9 +1,9 @@
 package plugin;
 
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProviderLoader;
 
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterServiceProvider;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IContextAdapterServiceProvider;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IContextAdapterServiceProviderLoader;
 
 public class CytoscapeServiceProviderLoader implements IContextAdapterServiceProviderLoader {
     /*
@@ -14,7 +14,7 @@ public class CytoscapeServiceProviderLoader implements IContextAdapterServicePro
 	}
 
 	public IContextAdapterServiceProvider getContextAdapterServiceProvider() {
-		return new BasicCytoscapeContextAdapterServiceProvider();
+		return BasicCytoscapeContextAdapterServiceProvider.getInstance();
 	}
 
 }

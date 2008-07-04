@@ -4,13 +4,12 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjectsAPI.IMap;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
 import org.pathwayeditor.contextadapter.publicapi.IValidationReport;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleConfig;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleConfigurer;
 
 
-public final class ContextValidationService implements IContextAdapterValidationService {
+public final class ContextValidationService implements IToolKitContextAdapterValidationService {
 
 	private INDOMValidationService ndomValidation;
 	private IContextAdapterServiceProvider serviceProvider;
@@ -58,10 +57,9 @@ public final class ContextValidationService implements IContextAdapterValidation
      * <li> Handling exceptions thrown by the parser
      * @throw {@link IllegalStateException} if service isReadyToValidate == false
      */
-	public final void validateMap() {
+	public void validateMap() {
 		if(!isReadyToValidate())
 			throw new IllegalStateException("Service not ready to validate");
-
 		configureRulesFromUserPreferences();
 		this.ndomValidation.validateMap();		
 	}
@@ -105,6 +103,10 @@ public final class ContextValidationService implements IContextAdapterValidation
 
 	public boolean isImplemented() {
 		return true;
+	}
+
+	public INDOMValidationService getNDOMValidationService() {
+		return ndomValidation;
 	}
 
 }

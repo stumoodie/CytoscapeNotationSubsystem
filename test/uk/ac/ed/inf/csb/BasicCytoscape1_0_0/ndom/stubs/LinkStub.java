@@ -607,7 +607,10 @@ public class LinkStub implements ILink {
 	}
 
 	public IContextProperty getPropertyByName(String name) {
-		return null;
+		if(name.equals("interacts"))
+			return new ContextPropertyStub(interaction);
+		else
+			return null;
 	}
 
 	public IRootMapObject getRootMapObject() {

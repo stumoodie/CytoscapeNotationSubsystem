@@ -52,4 +52,9 @@ public class NodeStub implements INode {
 		return null;
 	}
 
+	public int compareTo(INode arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
