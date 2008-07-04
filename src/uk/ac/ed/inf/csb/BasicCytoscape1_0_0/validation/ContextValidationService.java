@@ -10,7 +10,7 @@ import org.pathwayeditor.contextadapter.publicapi.IValidationRuleConfig;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleConfigurer;
 
 
-public class ContextValidationService implements IContextAdapterValidationService {
+public final class ContextValidationService implements IContextAdapterValidationService {
 
 	private INDOMValidationService ndomValidation;
 	private IContextAdapterServiceProvider serviceProvider;
