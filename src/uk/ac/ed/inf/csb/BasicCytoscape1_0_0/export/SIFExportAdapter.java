@@ -24,9 +24,38 @@ public class SIFExportAdapter<N extends IGraph> implements IExportAdapter<N> {
 		sifFile = new HashMap<String, Map<String, String>>();
 		for (INode node : ndom.getNodes()) {
 			Map<String, String> nodesByType = getInteractingNodesByType(node);
-			sifFile.put(node.getName(), nodesByType);
+			addToSifFile(node,nodesByType);
 		}
 		isTargetCreated = true;
+	}
+
+	private void addToSifFile(INode node,Map<String, String> nodesByType) {
+		if(!sifFile.keySet().contains(node.getName())){
+			if(nodesByType.isEmpty()&&!node.getTargetEdges().isEmpty())
+				;//only nodes with no edges at all should be added as 'singletons' - nodes that are only targets will be added elsewhere
+			else
+				sifFile.put(node.getName(), nodesByType);
+		}
+		else{
+			Map <String,String> existingNodesByType = sifFile.get(node.getName());
+			for (String interactionName: nodesByType.keySet()){
+				if(existingNodesByType.keySet().contains(interactionName)){
+					String existingTargetNodes = existingNodesByType.get(interactionName);
+					String newTargetNodes = nodesByType.get(interactionName);
+					Set <String>existingSet = new HashSet<String>(Arrays.asList(existingTargetNodes.split(",")));
+					Set <String>newSet = new HashSet<String>(Arrays.asList(newTargetNodes.split(",")));
+					String newDataString = "";
+					existingSet.addAll(newSet);
+					for (String name: existingSet){
+						newDataString+=name+",";
+					}
+					newDataString=newDataString.substring(0,newDataString.length()-1);//remove trailing comma
+					existingNodesByType.put(interactionName, newDataString);
+				}
+				else
+					existingNodesByType.put(interactionName, nodesByType.get(interactionName));
+			}
+		}
 	}
 
 	/**

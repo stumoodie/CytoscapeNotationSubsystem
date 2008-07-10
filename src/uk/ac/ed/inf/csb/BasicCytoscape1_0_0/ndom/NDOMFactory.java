@@ -9,12 +9,12 @@ import org.pathwayeditor.businessobjectsAPI.ILink;
 import org.pathwayeditor.businessobjectsAPI.IMapObject;
 import org.pathwayeditor.businessobjectsAPI.IRootMapObject;
 import org.pathwayeditor.businessobjectsAPI.IShape;
+import org.pathwayeditor.contextadapter.toolkit.ndom.AbstractNDOMParser;
 
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterSyntaxService;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.AbstractNDOMParser;
 
 /**
  * @author nhanlon
@@ -103,15 +103,17 @@ public class NDOMFactory extends AbstractNDOMParser {
 		if (!srcNodeMap.keySet().contains(src)) {
 			srcNode = new Node(src.getName().getString());
 			srcNodeMap.put(src, srcNode);
-		} else
-			srcNode = (Node) srcNodeMap.get(src);
-		graph.addNode(srcNode);
+			graph.addNode(srcNode);
+		} 
+		else
+			srcNode=(Node) srcNodeMap.get(src);
 		if (!targetNodeMap.keySet().contains(target)) {
 			targetNode = new Node(target.getName().getString());
 			targetNodeMap.put(target, targetNode);
-		} else
-			targetNode = (Node) targetNodeMap.get(target);
-		graph.addNode(targetNode);
+			graph.addNode(targetNode);
+		} 
+		else
+			targetNode=(Node) targetNodeMap.get(target);
 		graph.linkNodes(srcNode, targetNode, edge);
 	}
 

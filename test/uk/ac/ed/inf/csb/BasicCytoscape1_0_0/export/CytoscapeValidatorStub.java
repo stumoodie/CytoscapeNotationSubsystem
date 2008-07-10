@@ -4,15 +4,15 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjectsAPI.IMap;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
+import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
 import org.pathwayeditor.contextadapter.publicapi.IValidationReport;
 import org.pathwayeditor.contextadapter.publicapi.IValidationRuleConfig;
+import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
 import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
+import org.pathwayeditor.contextadapter.toolkit.validation.IValidationRuleStore;
 
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.GraphStub;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.ValidationReportStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IContextAdapterServiceProvider;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.INDOMValidationService;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IValidationRuleStore;
 
 public class CytoscapeValidatorStub implements INDOMValidationService{
 

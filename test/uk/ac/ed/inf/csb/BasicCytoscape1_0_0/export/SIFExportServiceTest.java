@@ -14,49 +14,49 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pathwayeditor.businessobjectsAPI.IMap;
-import org.pathwayeditor.businessobjectsAPI.IRootMapObject;
 import org.pathwayeditor.contextadapter.publicapi.ExportServiceException;
+import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
 import org.pathwayeditor.contextadapter.toolkit.ndom.ExportAdapterCreationException;
 import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
+import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
+import org.pathwayeditor.contextadapter.toolkit.validation.ContextValidationService;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.RootStub;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.StreamServiceStub;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.ContextValidationService;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IToolKitContextAdapterServiceProvider;
 
 @RunWith(JMock.class)
 public class SIFExportServiceTest {
 	Mockery mockery = new JUnit4Mockery();
-	private IToolKitContextAdapterServiceProvider contextService;
+	private IContextAdapterServiceProvider contextService;
 	private CytoscapeValidatorStub validator;
 	private IMap map;
 	private SIFExportService service;
 	private File exportFile;
-	private IRootMapObject root;
 	private ContextValidationService validationService;
+	private INDOMValidationService ndomValidationService;
+	private IGraph graph;
 
 	@Before
 	public void setUp() {
-		contextService = mockery.mock(IToolKitContextAdapterServiceProvider.class);
+		contextService = mockery.mock(IContextAdapterServiceProvider.class);
+		ndomValidationService=mockery.mock(INDOMValidationService.class);
+		graph=mockery.mock(IGraph.class);
 		exportFile = new File("");
 		mockery.checking(new Expectations() {
-			{
-				ignoring(contextService).getContext();
-			}
+			{ignoring(contextService).getContext();}
+			{atLeast(1).of(ndomValidationService).getNDOM();will(returnValue(graph));}
+			{ignoring(graph).getNodes();}
 		});
 		validator = new CytoscapeValidatorStub(contextService);
 		validationService = new ContextValidationService(contextService,validator);
 		map = mockery.mock(IMap.class);
-		root = new RootStub();
 		mockery.checking(new Expectations() {
-
 			{
-				atLeast(1).of(contextService).getToolKitValidationService();
+				atLeast(1).of(contextService).getValidationService();
 				will(returnValue(validationService));
 			}
 		});
-		service = new SIFExportService(contextService, new SIFExportAdapter<IGraph>());
+		service = new SIFExportService(contextService, new SIFExportAdapter<IGraph>(),ndomValidationService);
 		service.setStreamer(new StreamServiceStub());
 	}
 
@@ -74,7 +74,7 @@ public class SIFExportServiceTest {
 				atLeast(1).of(generator).createTarget(with(any(IGraph.class)));
 			}
 		});
-		service = new SIFExportService(contextService,generator);
+		service = new SIFExportService(contextService,generator, ndomValidationService);
 		service.setStreamer(new StreamServiceStub());
 		service.exportMap(map, exportFile);
 	}
@@ -88,7 +88,7 @@ public class SIFExportServiceTest {
 				ignoring(generator).createTarget(with(any(IGraph.class)));
 			}
 		});
-		service = new SIFExportService(contextService,generator);
+		service = new SIFExportService(contextService,generator, ndomValidationService);
 		service.setStreamer(new StreamServiceStub());
 		service.exportMap(map, exportFile);
 	}

@@ -25,10 +25,9 @@ public class CytoscapeRuleLoader implements IDefaultValidationRuleConfigLoader {
 	static IValidationRuleDefinition uniqueEdges, uniqueNodes;
 	
 	static IValidationRuleConfig configUniqueEdges ,configUniqueNodes;
-	static IContext context;
+	static IContext context = BasicCytoscapeContextAdapterServiceProvider.getInstance().getContext();
 	private static IDefaultValidationRuleConfigLoader instance;
 	static {
-		context =  BasicCytoscapeContextAdapterServiceProvider.getInstance().getContext();
 		uniqueEdges = new ValidationRuleDefinition(context, "Edges between two nodes must have unique interaction names", "UNIQUE_EDGES", UNIQUE_EDGES, RuleLevel.MANDATORY);
 		uniqueNodes = new ValidationRuleDefinition(context,  "Node names must be unique","UNIQUE_NODES", UNIQUE_NODES, RuleLevel.OPTIONAL);
 		

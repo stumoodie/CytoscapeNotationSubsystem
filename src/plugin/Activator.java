@@ -1,15 +1,16 @@
 package plugin;
 
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.pathwayeditor.contextadapter.toolkit.validation.ContextValidationService;
 
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterServiceProvider;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.ContextValidationService;
+import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapePreferencesConfigurer;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends Plugin {
+public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "Cytoscape";
@@ -31,6 +32,7 @@ public class Activator extends Plugin {
 		super.start(context);
 		plugin = this;
 		ContextValidationService  service =(ContextValidationService) BasicCytoscapeContextAdapterServiceProvider.getInstance().getValidationService();
+		service.setRuleConfigurer(new CytoscapePreferencesConfigurer());
 	}
 
 	/*

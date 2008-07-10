@@ -8,6 +8,8 @@ import org.pathwayeditor.businessobjects.constants.ArrowheadStyle;
 import org.pathwayeditor.businessobjects.constants.LineStyle;
 import org.pathwayeditor.businessobjects.constants.ShapeType;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
+import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
+import org.pathwayeditor.contextadapter.publicapi.IContextAdapterSyntaxService;
 import org.pathwayeditor.contextadapter.publicapi.IPropertyDefinition;
 import org.pathwayeditor.contextadapter.publicapi.IRootMapObjectType;
 import org.pathwayeditor.contextadapter.publicapi.IShapeObjectType;
@@ -18,9 +20,6 @@ import org.pathwayeditor.contextadapter.toolkit.ctxdefn.NumberPropertyDefinition
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.RootMapObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.ShapeObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.TextPropertyDefinition;
-
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IContextAdapterServiceProvider;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.IContextAdapterSyntaxService;
 
 public class BasicCytoscapeContextAdapterSyntaxService implements IContextAdapterSyntaxService {
 	public static enum ObjectTypes {
