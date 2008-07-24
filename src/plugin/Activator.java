@@ -5,7 +5,6 @@ import org.osgi.framework.BundleContext;
 import org.pathwayeditor.contextadapter.toolkit.validation.ContextValidationService;
 
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterServiceProvider;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapePreferencesConfigurer;
 
 /**
  * The activator class controls the plug-in life cycle

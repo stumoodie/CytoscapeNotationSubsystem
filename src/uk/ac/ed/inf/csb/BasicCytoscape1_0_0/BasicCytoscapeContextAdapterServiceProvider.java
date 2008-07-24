@@ -15,7 +15,6 @@ import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportAdapter;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportService;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
 import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapeNDOMValidationService;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapePreferencesConfigurer;
 
 public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdapterServiceProvider {
 	private static final String GLOBAL_ID = "uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscape";
