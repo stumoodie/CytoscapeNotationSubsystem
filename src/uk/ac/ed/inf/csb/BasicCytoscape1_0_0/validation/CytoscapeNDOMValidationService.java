@@ -83,7 +83,7 @@ public class CytoscapeNDOMValidationService implements INDOMValidationService {
 	public final void validateMap() {
 		factory = createNdomFactory();
 		reportBuilder = new RuleValidationReportBuilder(getRuleStore(), mapToValidate);
-		factory.setReportBuilder(reportBuilder);
+		//factory.setReportBuilder(reportBuilder);
 		factory.setRmo(mapToValidate.getTheSingleRootMapObject());
 		try {
 			generateNdom();
