@@ -9,4 +9,18 @@
             class="plugin.CytoscapeServiceProviderLoader">
       </context>
    </extension>
+<extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="Cytoscape.main"
+            class="plugin.CytoscapeValidationRulePreferences"
+            id="Cytoscape.validationRuleConfiguration"
+            name="Validation Rule Config">
+      </page>
+      <page
+            class="plugin.MainPreference"
+            id="Cytoscape.main"
+            name="Cytoscape Context Adapter">
+      </page>
+   </extension>
 </plugin>
