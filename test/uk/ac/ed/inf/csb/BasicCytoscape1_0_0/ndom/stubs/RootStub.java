@@ -429,4 +429,9 @@ public class RootStub implements IRootMapObject {
 		
 	}
 
+	public Set<IMapObject> getMapObjectsOfType(IObjectType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
