@@ -18,8 +18,8 @@ import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapeNDOMValidationSe
 
 public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdapterServiceProvider {
 	private static final String GLOBAL_ID = "uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscape";
-	public static final String DISPLAY_NAME = "Basic Cytoscape Context";
-	private static final String NAME = "Basic Cytoscape Context";
+	public static final String DISPLAY_NAME = "Cytoscape Notation";
+	private static final String NAME = "Cytoscape Context";
 	private static final int[] VERS = getVersion("1_0_0");
 	private static BasicCytoscapeContextAdapterServiceProvider instance;
 	//private static IDefaultValidationRuleConfigLoader loader = CytoscapeRuleLoader.getInstance();
