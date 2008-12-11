@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom;
+package org.pathwayeditor.notations.cytoscape.ndom;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,13 +12,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.pathwayeditor.businessobjectsAPI.IMapObject;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.LabelStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.LinkStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.RootStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.ShapeStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.LabelStub;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.LinkStub;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.RootStub;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.ShapeStub;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class NDomFactoryTest {
 	List <IMapObject> testShapes;

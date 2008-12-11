@@ -1,9 +1,9 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs;
+package org.pathwayeditor.notations.cytoscape.ndom.stubs;
 
 import java.util.Set;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class NodeStub implements INode {
 

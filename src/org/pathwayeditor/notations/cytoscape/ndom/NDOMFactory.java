@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom;
+package org.pathwayeditor.notations.cytoscape.ndom;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.pathwayeditor.businessobjectsAPI.IRootMapObject;
 import org.pathwayeditor.businessobjectsAPI.IShape;
 import org.pathwayeditor.contextadapter.toolkit.ndom.AbstractNDOMParser;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterSyntaxService;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterSyntaxService;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 /**
  * @author nhanlon

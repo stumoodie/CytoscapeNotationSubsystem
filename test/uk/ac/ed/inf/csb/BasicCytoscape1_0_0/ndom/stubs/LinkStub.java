@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs;
+package org.pathwayeditor.notations.cytoscape.ndom.stubs;
 
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
@@ -30,7 +30,7 @@ import org.pathwayeditor.businessobjectsAPI.Size;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
 import org.pathwayeditor.contextadapter.publicapi.IObjectType;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterSyntaxService;
+import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterSyntaxService;
 
 public class LinkStub implements ILink {
 

@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation;
+package org.pathwayeditor.notations.cytoscape.validation;
 
 import java.util.Date;
 import java.util.List;

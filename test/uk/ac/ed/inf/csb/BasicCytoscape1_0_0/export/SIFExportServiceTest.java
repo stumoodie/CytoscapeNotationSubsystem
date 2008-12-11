@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package org.pathwayeditor.notations.cytoscape.export;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,8 +21,8 @@ import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
 import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
 import org.pathwayeditor.contextadapter.toolkit.validation.ContextValidationService;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.StreamServiceStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.StreamServiceStub;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
 
 @RunWith(JMock.class)
 public class SIFExportServiceTest {

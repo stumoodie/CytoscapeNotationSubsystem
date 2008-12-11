@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom;
+package org.pathwayeditor.notations.cytoscape.ndom;
 
 public class NonUniqueEdgeNameException extends Exception {
 

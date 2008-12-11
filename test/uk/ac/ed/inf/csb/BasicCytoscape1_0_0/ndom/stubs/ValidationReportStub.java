@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs;
+package org.pathwayeditor.notations.cytoscape.ndom.stubs;
 
 import java.util.Date;
 import java.util.List;

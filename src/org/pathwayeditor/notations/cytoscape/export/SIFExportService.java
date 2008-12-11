@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package org.pathwayeditor.notations.cytoscape.export;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
 import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
 import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
 
 public class SIFExportService implements IContextAdapterExportService {
 	public static final String DISPLAYNAME = "CYTOSCAPE SIF";

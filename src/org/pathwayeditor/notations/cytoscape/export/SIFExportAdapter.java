@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package org.pathwayeditor.notations.cytoscape.export;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,9 +11,9 @@ import java.util.Set;
 import org.pathwayeditor.contextadapter.toolkit.ndom.ExportAdapterCreationException;
 import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class SIFExportAdapter<N extends IGraph> implements IExportAdapter<N> {
 

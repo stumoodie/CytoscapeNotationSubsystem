@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndomAPI/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/validation/" kind="src" path="src"/>
-	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/stubs/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/" kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="org/pathwayeditor/notations/cytoscape/export/|org/pathwayeditor/notations/cytoscape/ndom/|org/pathwayeditor/notations/cytoscape/ndomAPI/|org/pathwayeditor/notations/cytoscape/validation/" kind="src" path="src"/>
+	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/stubs/" kind="src" path="test"/>
 	<classpathentry kind="lib" path="libs/ToolKit/toolkit.jar" sourcepath="libs/ToolKit/toolkit-src.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/ToolKit/toolkit-docs.jar!/"/>
@@ -13,5 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/BusinessObjects/BusinessObjects-docs.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

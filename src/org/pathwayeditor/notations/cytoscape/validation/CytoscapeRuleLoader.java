@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation;
+package org.pathwayeditor.notations.cytoscape.validation;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import org.pathwayeditor.contextadapter.toolkit.validation.IDefaultValidationRul
 import org.pathwayeditor.contextadapter.toolkit.validation.ValidationRuleConfig;
 import org.pathwayeditor.contextadapter.toolkit.validation.ValidationRuleDefinition;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscapeContextAdapterServiceProvider;
+import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterServiceProvider;
 
 
 public class CytoscapeRuleLoader implements IDefaultValidationRuleConfigLoader {

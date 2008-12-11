@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package org.pathwayeditor.notations.cytoscape.export;
 
 import java.util.Set;
 
@@ -11,8 +11,8 @@ import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
 import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
 import org.pathwayeditor.contextadapter.toolkit.validation.IValidationRuleStore;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.GraphStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.ValidationReportStub;
+import org.pathwayeditor.notations.cytoscape.ndom.GraphStub;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.ValidationReportStub;
 
 public class CytoscapeValidatorStub implements INDOMValidationService{
 

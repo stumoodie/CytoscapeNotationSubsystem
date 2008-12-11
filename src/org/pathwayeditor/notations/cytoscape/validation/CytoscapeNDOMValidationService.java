@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation;
+package org.pathwayeditor.notations.cytoscape.validation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,9 +21,9 @@ import org.pathwayeditor.contextadapter.toolkit.validation.IValidationRuleStore;
 import org.pathwayeditor.contextadapter.toolkit.validation.RuleStore;
 import org.pathwayeditor.contextadapter.toolkit.validation.RuleValidationReportBuilder;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.NDOMFactory;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndom.NDOMFactory;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class CytoscapeNDOMValidationService implements INDOMValidationService {
 

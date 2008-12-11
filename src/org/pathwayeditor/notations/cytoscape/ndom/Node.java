@@ -1,10 +1,10 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom;
+package org.pathwayeditor.notations.cytoscape.ndom;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class Node implements INode {
 

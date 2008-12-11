@@ -1,10 +1,10 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs;
+package org.pathwayeditor.notations.cytoscape.ndom.stubs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.StreamService;
+import org.pathwayeditor.notations.cytoscape.export.StreamService;
 
 public class StreamServiceStub extends StreamService {
 

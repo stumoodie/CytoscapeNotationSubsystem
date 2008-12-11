@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export;
+package org.pathwayeditor.notations.cytoscape.export;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,13 +16,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.pathwayeditor.contextadapter.toolkit.ndom.ExportAdapterCreationException;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.Edge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.GraphStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.Node;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.OutStreamStub;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IEdge;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.INode;
+import org.pathwayeditor.notations.cytoscape.ndom.Edge;
+import org.pathwayeditor.notations.cytoscape.ndom.GraphStub;
+import org.pathwayeditor.notations.cytoscape.ndom.Node;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.OutStreamStub;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
+import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;
 
 public class SIFExportAdapterTest {
 

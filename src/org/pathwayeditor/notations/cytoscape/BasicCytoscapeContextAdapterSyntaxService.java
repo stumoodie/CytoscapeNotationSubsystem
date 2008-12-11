@@ -1,4 +1,4 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0;
+package org.pathwayeditor.notations.cytoscape;
 
 import java.util.ArrayList;
 import java.util.Arrays;

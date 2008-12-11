@@ -1,11 +1,11 @@
-package uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom;
+package org.pathwayeditor.notations.cytoscape.ndom;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndom.stubs.NodeStub;
+import org.pathwayeditor.notations.cytoscape.ndom.stubs.NodeStub;
 
 public class CytoscapeGraphTest {
 
