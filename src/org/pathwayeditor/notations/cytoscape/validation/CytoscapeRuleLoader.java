@@ -12,7 +12,7 @@ import org.pathwayeditor.contextadapter.toolkit.validation.IDefaultValidationRul
 import org.pathwayeditor.contextadapter.toolkit.validation.ValidationRuleConfig;
 import org.pathwayeditor.contextadapter.toolkit.validation.ValidationRuleDefinition;
 
-import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterServiceProvider;
+import org.pathwayeditor.notations.cytoscape.CytoscapeNotationSubsystem;
 
 
 public class CytoscapeRuleLoader implements IDefaultValidationRuleConfigLoader {

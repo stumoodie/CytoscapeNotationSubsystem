@@ -29,7 +29,7 @@ import org.pathwayeditor.businessobjectsAPI.URLResource;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
 import org.pathwayeditor.contextadapter.publicapi.IObjectType;
 
-import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterSyntaxService;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 
 public class ShapeStub implements IShape {
 public class ObjectTypeStub implements IObjectType {

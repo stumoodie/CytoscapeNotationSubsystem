@@ -11,7 +11,7 @@ import org.pathwayeditor.businessobjectsAPI.IRootMapObject;
 import org.pathwayeditor.businessobjectsAPI.IShape;
 import org.pathwayeditor.contextadapter.toolkit.ndom.AbstractNDOMParser;
 
-import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterSyntaxService;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 import org.pathwayeditor.notations.cytoscape.ndomAPI.IEdge;
 import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
 import org.pathwayeditor.notations.cytoscape.ndomAPI.INode;

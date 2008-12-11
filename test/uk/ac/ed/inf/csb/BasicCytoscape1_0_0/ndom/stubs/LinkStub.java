@@ -30,7 +30,7 @@ import org.pathwayeditor.businessobjectsAPI.Size;
 import org.pathwayeditor.contextadapter.publicapi.IContext;
 import org.pathwayeditor.contextadapter.publicapi.IObjectType;
 
-import org.pathwayeditor.notations.cytoscape.BasicCytoscapeContextAdapterSyntaxService;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 
 public class LinkStub implements ILink {
 

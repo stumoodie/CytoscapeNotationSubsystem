@@ -35,8 +35,7 @@ import org.pathwayeditor.contextadapter.toolkit.ctxdefn.RootObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.ShapeObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.TextPropertyDefinition;
 
-public class BasicCytoscapeContextAdapterSyntaxService implements
-        INotationSyntaxService {
+public class CytoscapeSyntaxService implements INotationSyntaxService {
     public static final int ROOT_UID = 0;
     public static final int NODE_UID = 1;
     public static final int EDGE_UID = 2;
@@ -95,7 +94,7 @@ public class BasicCytoscapeContextAdapterSyntaxService implements
     // links
     private LinkObjectType Edge;
 
-    public BasicCytoscapeContextAdapterSyntaxService(
+    public CytoscapeSyntaxService(
             INotationSubsystem serviceProvider) {
         this.notationSubsystem = serviceProvider;
         // "Basic Cytoscape Context"

@@ -13,19 +13,19 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralNotation;
 
-public class BasicCytoscapeContextAdapterServiceProvider implements INotationSubsystem {
+public class CytoscapeNotationSubsystem implements INotationSubsystem {
 	private static final String GLOBAL_ID = "org.pathwayeditor.notations.cytoscape";
 	public static final String DISPLAY_NAME = "Cytoscape Notation";
 	private static final String NAME = "Cytoscape Context";
 	private static final Version VERS = new Version(1, 0, 0);
 	
-	private BasicCytoscapeContextAdapterSyntaxService syntaxService;
+	private CytoscapeSyntaxService syntaxService;
 	private INotation context;
 	private INotationValidationService cytoscapeValidationService;
 
-	public BasicCytoscapeContextAdapterServiceProvider() {
+	public CytoscapeNotationSubsystem() {
 	    this.context = new GeneralNotation(GLOBAL_ID, DISPLAY_NAME, NAME, VERS);
-		this.syntaxService = new BasicCytoscapeContextAdapterSyntaxService(this);
+		this.syntaxService = new CytoscapeSyntaxService(this);
 		cytoscapeValidationService = new CytoscapeNotationValidationService(this);
 	}
 	
@@ -48,7 +48,7 @@ public class BasicCytoscapeContextAdapterServiceProvider implements INotationSub
 		return Collections.emptySet();
 	}
 
-	public BasicCytoscapeContextAdapterSyntaxService getSyntaxService() {
+	public CytoscapeSyntaxService getSyntaxService() {
 		return this.syntaxService;
 	}
 
@@ -80,7 +80,7 @@ public class BasicCytoscapeContextAdapterServiceProvider implements INotationSub
         }
 
         public INotationSubsystem getNotationSubsystem() {
-            return BasicCytoscapeContextAdapterServiceProvider.this;
+            return CytoscapeNotationSubsystem.this;
         }
 
 	}

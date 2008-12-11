@@ -11,9 +11,9 @@ import org.pathwayeditor.businessobjects.notationsubsystem.IValidationRuleDefini
 
 
 public class CytoscapeNotationValidationService implements INotationValidationService {
-    private final BasicCytoscapeContextAdapterServiceProvider notationSubsystem;
+    private final CytoscapeNotationSubsystem notationSubsystem;
     
-    public CytoscapeNotationValidationService(BasicCytoscapeContextAdapterServiceProvider notationSubsystem) {
+    public CytoscapeNotationValidationService(CytoscapeNotationSubsystem notationSubsystem) {
         this.notationSubsystem = notationSubsystem;
     }
     
