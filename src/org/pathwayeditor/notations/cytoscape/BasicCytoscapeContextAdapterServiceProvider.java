@@ -14,7 +14,7 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationSe
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralNotation;
 
 public class BasicCytoscapeContextAdapterServiceProvider implements INotationSubsystem {
-	private static final String GLOBAL_ID = "org.pathwayeditor.notations.cytoscape.BasicCytoscape";
+	private static final String GLOBAL_ID = "org.pathwayeditor.notations.cytoscape";
 	public static final String DISPLAY_NAME = "Cytoscape Notation";
 	private static final String NAME = "Cytoscape Context";
 	private static final Version VERS = new Version(1, 0, 0);
