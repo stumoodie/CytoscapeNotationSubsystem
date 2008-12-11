@@ -1,216 +1,314 @@
 package uk.ac.ed.inf.csb.BasicCytoscape1_0_0;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.constants.ArrowheadStyle;
-import org.pathwayeditor.businessobjects.constants.LineStyle;
-import org.pathwayeditor.businessobjects.constants.ShapeType;
-import org.pathwayeditor.contextadapter.publicapi.IContext;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterSyntaxService;
-import org.pathwayeditor.contextadapter.publicapi.IPropertyDefinition;
-import org.pathwayeditor.contextadapter.publicapi.IRootMapObjectType;
-import org.pathwayeditor.contextadapter.publicapi.IShapeObjectType;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
+import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType;
+import org.pathwayeditor.businessobjects.typedefn.IObjectType;
+import org.pathwayeditor.businessobjects.typedefn.IRootObjectType;
+import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
+import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
+import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
+import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.FormattedTextPropertyDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.LinkEndDefinition;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.LinkObjectType;
+import org.pathwayeditor.contextadapter.toolkit.ctxdefn.LinkTerminusDefinition;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.NumberPropertyDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.RootMapObjectType;
+import org.pathwayeditor.contextadapter.toolkit.ctxdefn.PlainTextPropertyDefinition;
+import org.pathwayeditor.contextadapter.toolkit.ctxdefn.RootObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.ShapeObjectType;
 import org.pathwayeditor.contextadapter.toolkit.ctxdefn.TextPropertyDefinition;
 
-public class BasicCytoscapeContextAdapterSyntaxService implements IContextAdapterSyntaxService {
-	public static enum ObjectTypes {
-		Node{public String toString(){return "10";}},
-		Edge{public String toString(){return "20";}},
+public class BasicCytoscapeContextAdapterSyntaxService implements
+        INotationSyntaxService {
+    public static final int ROOT_UID = 0;
+    public static final int NODE_UID = 1;
+    public static final int EDGE_UID = 2;
+    private static final String NODE_NAME = "Node";
+    private static final String NODE_DESCN = "Node";
+    private static final String EDGE_NAME = "Edge";
+    private static final String EDGE_DESCN = "Edge";
 
-		ROOT_MAP_OBJECT{public String toString(){return "-10";}}
-	}
-	
-	private static int[] getRGB(String hex) {
-		hex = hex.replace("#", "");
-		int r = Integer.parseInt(hex.substring(0, 2), 16);
-		int g = Integer.parseInt(hex.substring(2, 4), 16);
-		int b = Integer.parseInt(hex.substring(4), 16);
-		return new int[] { r, g, b };
-	}
+    private static IPropertyDefinition reassignVal(IPropertyDefinition prop,
+            String val, boolean isEdit, boolean isVis) {
+        if (prop instanceof TextPropertyDefinition)
+            return reassignVal((TextPropertyDefinition) prop, val, isEdit,
+                    isVis);
+        if (prop instanceof FormattedTextPropertyDefinition)
+            return reassignVal((FormattedTextPropertyDefinition) prop, val,
+                    isEdit, isVis);
+        if (prop instanceof NumberPropertyDefinition)
+            return reassignVal((NumberPropertyDefinition) prop, val, isEdit,
+                    isVis);
+        return prop;
+    }
 
-	private static IPropertyDefinition reassignVal(IPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
-		if( prop instanceof TextPropertyDefinition) return reassignVal((TextPropertyDefinition) prop,val,isEdit,isVis);
-		if( prop instanceof FormattedTextPropertyDefinition) return reassignVal((FormattedTextPropertyDefinition) prop,val,isEdit,isVis);
-		if( prop instanceof NumberPropertyDefinition) return reassignVal((NumberPropertyDefinition) prop,val,isEdit,isVis);
-		return prop;
-	}
-	
-	private static TextPropertyDefinition reassignVal(TextPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
-		TextPropertyDefinition newP=new TextPropertyDefinition(prop.getName(),val,(prop.isVisualisable() | isVis),(prop.isEditable()&isEdit));
-		return newP;
-	}
-	
-	private static FormattedTextPropertyDefinition reassignVal(FormattedTextPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
-		FormattedTextPropertyDefinition newP=new FormattedTextPropertyDefinition(prop.getName(),val,(prop.isVisualisable() | isVis),(prop.isEditable()&isEdit));
-		return newP;
-	}
-	
-	private static NumberPropertyDefinition reassignVal(NumberPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
-		NumberPropertyDefinition newP=new NumberPropertyDefinition(prop.getName(),val,(prop.isVisualisable() | isVis),(prop.isEditable()&isEdit));
-		return newP;
-	}
-	
-	private final IContext context;
-	private final Set  shapeSet = new HashSet(); 
-	private final Set  linkSet = new HashSet();
-	private final Set  propSet=new HashSet();
-	
-	private RootMapObjectType rmo;
-	//shapes
-	private ShapeObjectType Node;
+    private static TextPropertyDefinition reassignVal(
+            TextPropertyDefinition prop, String val, boolean isEdit,
+            boolean isVis) {
+        TextPropertyDefinition newP = new PlainTextPropertyDefinition(prop
+                .getName(), val, (prop.isVisualisable() | isVis), (prop
+                .isEditable() & isEdit));
+        return newP;
+    }
 
-	//links
-	private LinkObjectType Edge;
+    private static FormattedTextPropertyDefinition reassignVal(
+            FormattedTextPropertyDefinition prop, String val, boolean isEdit,
+            boolean isVis) {
+        FormattedTextPropertyDefinition newP = new FormattedTextPropertyDefinition(
+                prop.getName(), val, (prop.isVisualisable() | isVis), (prop
+                        .isEditable() & isEdit));
+        return newP;
+    }
 
-	
-	
-	private IContextAdapterServiceProvider serviceProvider;
+    private static NumberPropertyDefinition reassignVal(
+            NumberPropertyDefinition prop, String val, boolean isEdit,
+            boolean isVis) {
+        NumberPropertyDefinition newP = new NumberPropertyDefinition(prop
+                .getName(), val, (prop.isVisualisable() | isVis), (prop
+                .isEditable() & isEdit));
+        return newP;
+    }
 
-	public IContextAdapterServiceProvider getServiceProvider() {
-		return serviceProvider;
-	}
-	
-	public BasicCytoscapeContextAdapterSyntaxService(IContextAdapterServiceProvider serviceProvider) {
-		this.serviceProvider=serviceProvider;
-		this.context = serviceProvider.getContext();
-		//"Basic Cytoscape Context"
-		//"Context to test code generation of a basic cytoscape"
-		//1_0_0
-		createRMO();
-	//shapes
-		createNode();
+    private final Map<Integer, IShapeObjectType> shapeSet = new HashMap<Integer, IShapeObjectType>();
+    private final Map<Integer, ILinkObjectType> linkSet = new HashMap<Integer, ILinkObjectType>();
+    private final INotationSubsystem notationSubsystem;
+    private RootObjectType rmo;
+    // shapes
+    private ShapeObjectType Node;
+    // links
+    private LinkObjectType Edge;
 
-		defineParentingRMO();
-	//shapes parenting
-		defineParentingNode();
+    public BasicCytoscapeContextAdapterSyntaxService(
+            INotationSubsystem serviceProvider) {
+        this.notationSubsystem = serviceProvider;
+        // "Basic Cytoscape Context"
+        // "Context to test code generation of a basic cytoscape"
+        // 1_0_0
+        createRMO();
+        // shapes
+        createNode();
 
-	//links
-		createEdge();
-	//shape set
-		this.shapeSet.add(this.Node);
+        defineParentingRMO();
+        // shapes parenting
+        defineParentingNode();
 
-	//link set
-		this.linkSet.add(this.Edge);		
-	}
+        // links
+        createEdge();
+        // shape set
+        this.shapeSet.put(this.Node.getUniqueId(), this.Node);
 
-	public IContext getContext() {
-		return this.context;
-	}
+        // link set
+        this.linkSet.put(this.Edge.getUniqueId(), this.Edge);
+    }
 
-	public Set getLinkTypes() {
-		return new HashSet(this.linkSet);
-	}
+    public Set<ILinkObjectType> getLinkTypes() {
+        return new HashSet<ILinkObjectType>(this.linkSet.values());
+    }
 
-	public IRootMapObjectType getRootMapObjectType() {
-		return this.rmo;
-	}
+    public IRootObjectType getRootObjectType() {
+        return this.rmo;
+    }
 
-	public Set getShapeTypes() {
-		return new HashSet(this.shapeSet);
-	}
-		private void createRMO(){
-			this.rmo = new RootMapObjectType(this.context, ObjectTypes.ROOT_MAP_OBJECT);
-		}
-		private void defineParentingRMO(){
-			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.Node}));
-			for (IShapeObjectType child : set) {
-			  this.rmo.getParentingRules().addChild(child);
-			}
+    public Set<IShapeObjectType> getShapeTypes() {
+        return new HashSet<IShapeObjectType>(this.shapeSet.values());
+    }
 
-		}
+    private void createRMO() {
+        this.rmo = new RootObjectType(ROOT_UID, this);
+    }
 
-	private void createNode(){
-	this.Node = new ShapeObjectType(this.context, ObjectTypes.Node);
-	this.Node.setName("Node");
-	//this.Node.setDescription("node");
-	this.Node.setDescription("node");//ment to be TypeDescription rather
-	this.Node.setShapeType(ShapeType.RECTANGLE);
-	this.Node.setFillProperty(255,255,255);
-	this.Node.setSize(20,20);
-	int[] lc=new int[]{0,0,0};
-	this.Node.setLineProperty(1, LineStyle.SOLID,lc[0],lc[1],lc[2]);
-	this.Node.setShapeType(ShapeType.ELLIPSE);		int[] s=new int[]{50,50};
-			this.Node.setSize(s[0],s[1]);
-	this.Node.setFillEditable(true);
-	//this.Node.setShapeTypeEditable(true);
-	//this.Node.setSizeEditable(true);
-	this.Node.setLineStyleEditable(true);
-	this.Node.setLineWidthEditable(true);
-	this.Node.setLineColourEditable(true);
-	this.Node.setURL("http://");
-	}
+    private void defineParentingRMO() {
+        HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
+        set.addAll(Arrays.asList(new IShapeObjectType[] { this.Node }));
+        for (IShapeObjectType child : set) {
+            this.rmo.getParentingRules().addChild(child);
+        }
+    }
 
-		private void defineParentingNode(){
-			this.Node.getParentingRules().clear();
-		}
+    private void createNode() {
+        this.Node = new ShapeObjectType(this.notationSubsystem
+                .getSyntaxService(), NODE_UID, NODE_NAME);
+        this.Node.setDescription(NODE_DESCN);
+        this.Node.getDefaultAttributes().setShapeType(
+                PrimitiveShapeType.ELLIPSE);
+        this.Node.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+        this.Node.getDefaultAttributes().setSize(new Size(50, 50));
+        this.Node.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
+        this.Node.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+        this.Node.getDefaultAttributes().setLineWidth(1);
+        this.Node.getDefaultAttributes().setUrl("http://");
+        EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
+                .noneOf(EditableShapeAttributes.class);
+        editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
+        editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
+        editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
+        editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
+        this.Node.setEditableAttributes(editableAttributes);
+    }
 
-		public ShapeObjectType getNode(){
-			return this.Node;
-		}
+    private void defineParentingNode() {
+        this.Node.getParentingRules().clear();
+    }
 
-	
-	private void createEdge(){
-	HashSet<IShapeObjectType> set=null;
-	this.Edge= new LinkObjectType(this.context, ObjectTypes.Edge);
-	int[] lc=new int[]{0,0,0};
-	this.Edge.setLineProperty(1, LineStyle.SOLID,lc[0],lc[1],lc[2]);
-	this.Edge.setName("Edge");
-	this.Edge.setLineColourEditable(true);
-	this.Edge.setLineStyleEditable(true);
-	this.Edge.setLineWidthEditable(true);
-	 	IPropertyDefinition Interacts=reassignVal(getPropInteracts()," ",true,false);
-	 	Edge.addProperty(Interacts);
-	 
-	LinkEndDefinition sport=this.Edge.getLinkSource();
-	LinkEndDefinition tport=this.Edge.getLinkTarget();
-	sport.setOffset(0);//to set default offset value
-	sport.getLinkEndDecorator().setDecorator(ArrowheadStyle.NONE, 10,10);
-	sport.getTerminusDecorator().setDecoratorType(ShapeType.RECTANGLE);
-	sport.getTerminusDecorator().setSize(0,0);
-	int[] csport=new int[]{255,255,255};
-	sport.getTerminusDecorator().setColourProperties(csport[0],csport[1],csport[2]);
-	sport.getTerminusDecorator().setLineProperties(0, LineStyle.SOLID);
-	sport.getTerminusDecorator().setShapeTypeEditable(true);
-	sport.getTerminusDecorator().setColourEditable(true);
-	tport.setOffset(0);
-	tport.getLinkEndDecorator().setDecorator(ArrowheadStyle.NONE, 10,10);
-	tport.getTerminusDecorator().setDecoratorType(ShapeType.RECTANGLE);
-	tport.getTerminusDecorator().setSize(0,0);
-	int[] ctport=new int[]{255,255,255};
-	tport.getTerminusDecorator().setColourProperties(ctport[0],ctport[1],ctport[2]);
-	tport.getTerminusDecorator().setLineProperties(0, LineStyle.SOLID);
-	tport.getTerminusDecorator().setShapeTypeEditable(true);
-	tport.getTerminusDecorator().setColourEditable(true);
+    public ShapeObjectType getNode() {
+        return this.Node;
+    }
 
-	//this.Edge.setDetailedDescription(detailedDescription);
-	this.Edge.setUrl("http://");
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Node}));
-	for (IShapeObjectType tgt : set) {
-	  this.Edge.getLinkConnectionRules().addConnection(this.Node, tgt);
-	}
+    private void createEdge() {
+        this.Edge = new LinkObjectType(this.notationSubsystem
+                .getSyntaxService(), EDGE_UID, EDGE_NAME);
+        this.Edge.setDescription(EDGE_DESCN);
+        this.Edge.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
+        this.Edge.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
+        this.Edge.getDefaultLinkAttributes().setLineWidth(1);
+        EnumSet<LinkEditableAttributes> editableAttribute = EnumSet
+                .noneOf(LinkEditableAttributes.class);
+        editableAttribute.add(LinkEditableAttributes.COLOUR);
+        editableAttribute.add(LinkEditableAttributes.LINE_STYLE);
+        editableAttribute.add(LinkEditableAttributes.LINE_WIDTH);
+        IPropertyDefinition Interacts = reassignVal(getPropInteracts(), " ",
+                true, false);
+        Edge.getDefaultLinkAttributes().addPropertyDefinition(Interacts);
 
-	}
+        LinkTerminusDefinition sport = this.Edge.getSourceTerminusDefinition();
+        sport.getLinkTerminusDefaults().setGap((short) 0);// to set default
+        // offset value
+        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+                LinkEndDecoratorShape.NONE);
+        sport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
+        sport.getLinkTerminusDefaults().setTermDecoratorType(
+                PrimitiveShapeType.RECTANGLE);
+        sport.getLinkTerminusDefaults().setTermSize(new Size(0, 0));
+        sport.getLinkTerminusDefaults().setTermColour(new RGB(255, 255, 255));
+        EnumSet<LinkTermEditableAttributes> srcEditableAttribute = EnumSet
+                .noneOf(LinkTermEditableAttributes.class);
+        srcEditableAttribute
+                .add(LinkTermEditableAttributes.TERM_DECORATOR_TYPE);
+        srcEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
+        sport.setEditableAttributes(srcEditableAttribute);
 
-	public LinkObjectType getEdge(){
-		return this.Edge;
-	}
-	
+        LinkTerminusDefinition tport = this.Edge.getTargetTerminusDefinition();
+        tport.getLinkTerminusDefaults().setGap((short) 0);// to set default
+        // offset value
+        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+                LinkEndDecoratorShape.NONE);
+        tport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
+        tport.getLinkTerminusDefaults().setTermDecoratorType(
+                PrimitiveShapeType.RECTANGLE);
+        tport.getLinkTerminusDefaults().setTermSize(new Size(0, 0));
+        tport.getLinkTerminusDefaults().setTermColour(new RGB(255, 255, 255));
+        EnumSet<LinkTermEditableAttributes> tgtEditableAttribute = EnumSet
+                .noneOf(LinkTermEditableAttributes.class);
+        tgtEditableAttribute
+                .add(LinkTermEditableAttributes.TERM_DECORATOR_TYPE);
+        tgtEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
+        tport.setEditableAttributes(srcEditableAttribute);
 
-	private IPropertyDefinition getPropInteracts(){
-		IPropertyDefinition Interacts=new TextPropertyDefinition("interacts"," ",true,true);
-		return Interacts;
-	}
+        // this.Edge.setDetailedDescription(detailedDescription);
+        this.Edge.getDefaultLinkAttributes().setUrl("http://");
+        this.Edge.getLinkConnectionRules().addConnection(this.Node, this.Node);
+    }
 
+    public LinkObjectType getEdge() {
+        return this.Edge;
+    }
+
+    private IPropertyDefinition getPropInteracts() {
+        IPropertyDefinition Interacts = new PlainTextPropertyDefinition(
+                "interacts", " ", true, true);
+        return Interacts;
+    }
+
+    public boolean containsLinkObjectType(int uniqueId) {
+        return this.linkSet.containsKey(uniqueId);
+    }
+
+    public boolean containsObjectType(int uniqueId) {
+        boolean retVal = this.shapeSet.containsKey(uniqueId);
+        if(!retVal) {
+            retVal = this.linkSet.containsKey(uniqueId);
+            if(!retVal) {
+                retVal = this.rmo.getUniqueId() == uniqueId;
+            }
+        }
+        return retVal;
+    }
+
+    public boolean containsShapeObjectType(int uniqueId) {
+        return this.shapeSet.containsKey(uniqueId);
+    }
+
+    public ILinkObjectType getLinkObjectType(int uniqueId) {
+        ILinkObjectType retVal = this.linkSet.get(uniqueId);
+        if(retVal == null) {
+            throw new IllegalArgumentException("Cannot find objecttype matching uniqueid: " + uniqueId);
+        }
+        return retVal;
+    }
+
+    public IObjectType getObjectType(int uniqueId) {
+        IObjectType retVal = this.shapeSet.get(uniqueId);
+        if(retVal == null) {
+            retVal = this.linkSet.get(uniqueId);
+            if(retVal == null) {
+                if(this.rmo.getUniqueId() == uniqueId) {
+                    retVal = this.rmo;
+                }
+                else {
+                    throw new IllegalArgumentException("Cannot find objecttype matching uniqueid: " + uniqueId);
+                }
+            }
+        }
+        return retVal;
+    }
+
+    public IShapeObjectType getShapeObjectType(int uniqueId) {
+        IShapeObjectType retVal = this.shapeSet.get(uniqueId);
+        if(retVal == null) {
+            throw new IllegalArgumentException("Cannot find objecttype matching uniqueid: " + uniqueId);
+        }
+        return retVal;
+    }
+
+     public Iterator<ILinkObjectType> linkTypeIterator() {
+        return this.linkSet.values().iterator();
+    }
+
+    public Iterator<IObjectType> objectTypeIterator() {
+        List<IObjectType> retVal = new ArrayList<IObjectType>(this.shapeSet.size() + this.linkSet.size() + 1);
+        retVal.add(this.rmo);
+        retVal.addAll(this.shapeSet.values());
+        retVal.addAll(this.linkSet.values());
+        return retVal.iterator();
+    }
+
+    public Iterator<IShapeObjectType> shapeTypeIterator() {
+        return this.shapeSet.values().iterator();
+    }
+
+    public INotation getNotation() {
+        return this.notationSubsystem.getNotation();
+    }
+
+    public INotationSubsystem getNotationSubsystem() {
+        return this.notationSubsystem;
+    }
 
 }

@@ -1,56 +1,41 @@
 package uk.ac.ed.inf.csb.BasicCytoscape1_0_0;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
-import org.pathwayeditor.contextadapter.publicapi.IContext;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterAutolayoutService;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterValidationService;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralContext;
-import org.pathwayeditor.contextadapter.toolkit.validation.ContextValidationService;
+import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Version;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationAutolayoutService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationConversionService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
+import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralNotation;
 
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportAdapter;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.export.SIFExportService;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.ndomAPI.IGraph;
-import uk.ac.ed.inf.csb.BasicCytoscape1_0_0.validation.CytoscapeNDOMValidationService;
-
-public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdapterServiceProvider {
+public class BasicCytoscapeContextAdapterServiceProvider implements INotationSubsystem {
 	private static final String GLOBAL_ID = "uk.ac.ed.inf.csb.BasicCytoscape1_0_0.BasicCytoscape";
 	public static final String DISPLAY_NAME = "Cytoscape Notation";
 	private static final String NAME = "Cytoscape Context";
-	private static final int[] VERS = getVersion("1_0_0");
-	private static BasicCytoscapeContextAdapterServiceProvider instance;
-	//private static IDefaultValidationRuleConfigLoader loader = CytoscapeRuleLoader.getInstance();
+	private static final Version VERS = new Version(1, 0, 0);
 	
-	private static int[] getVersion(String ver) {
-		String[] l = ver.split("_");
-		int majorVersion = Integer.parseInt(l[0]);
-		int minorVersion = Integer.parseInt(l[1]);
-		int patchVersion = Integer.parseInt(l[2]);
-		return new int[] { majorVersion, minorVersion, patchVersion };
-	}
 	private BasicCytoscapeContextAdapterSyntaxService syntaxService;
-	private IContext context;
-	private IContextAdapterValidationService cytoscapeValidationService;
+	private INotation context;
+	private INotationValidationService cytoscapeValidationService;
 
-	 BasicCytoscapeContextAdapterServiceProvider() {
-		this.context = new GeneralContext(GLOBAL_ID, DISPLAY_NAME, NAME,
-				VERS[0], VERS[1], VERS[2]);
+	public BasicCytoscapeContextAdapterServiceProvider() {
+	    this.context = new GeneralNotation(GLOBAL_ID, DISPLAY_NAME, NAME, VERS);
 		this.syntaxService = new BasicCytoscapeContextAdapterSyntaxService(this);
-		CytoscapeNDOMValidationService ndomVal = CytoscapeNDOMValidationService.getInstance(this);
-		cytoscapeValidationService = new ContextValidationService(this,ndomVal);
+		cytoscapeValidationService = new CytoscapeNotationValidationService(this);
 	}
 	
 
-	public IContext getContext() {
+	public INotation getNotation() {
 		return this.context;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Set getExportServices() {
-		return new HashSet(Collections.singletonList(new SIFExportService(this,new SIFExportAdapter<IGraph>(), CytoscapeNDOMValidationService.getInstance(this))));
+	public Set<INotationExportService> getExportServices() {
+		return Collections.emptySet();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,39 +53,39 @@ public class BasicCytoscapeContextAdapterServiceProvider implements IContextAdap
 	}
 
 
-	public IContextAdapterValidationService getValidationService() {
+	public INotationValidationService getValidationService() {
 		return cytoscapeValidationService;
 	}
 
-	public Set getConversionServices() {
+	public Set<INotationConversionService> getConversionServices() {
 		return Collections.emptySet();
 	}
 
-	public IContextAdapterAutolayoutService getAutolayoutService() {
+	public INotationAutolayoutService getAutolayoutService() {
 		return new DefaultAutolayoutService();
 	}	
 
-	private class DefaultAutolayoutService implements IContextAdapterAutolayoutService {
+	private class DefaultAutolayoutService implements INotationAutolayoutService {
 
-		public IContext getContext() {
-			return context;
-		}
+        public boolean isImplemented() {
+            return false;
+        }
 
-		public boolean isImplemented() {
-			return false;
-		}
+        public void layout(ICanvas canvas) {
+            throw new UnsupportedOperationException("Not implemented!");
+        }
 
-		public IContextAdapterServiceProvider getServiceProvider() {
-			return  BasicCytoscapeContextAdapterServiceProvider.this;
-		}
-		
+        public INotation getNotation() {
+            return context;
+        }
+
+        public INotationSubsystem getNotationSubsystem() {
+            return BasicCytoscapeContextAdapterServiceProvider.this;
+        }
+
 	}
 
-	public static IContextAdapterServiceProvider getInstance() {
-		if(instance == null){
-			instance= new BasicCytoscapeContextAdapterServiceProvider();
-		}
-		return instance;
-	}
-
+    public boolean isFallback() {
+        return false;
+    }
 }

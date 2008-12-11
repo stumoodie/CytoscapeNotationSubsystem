@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/hamcrest-library-1.1.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/jmock-2.3.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/jmock-junit3-2.3.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/jmock-junit4-2.3.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/jmock-legacy-2.3.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.3.0/objenesis-1.0.jar"/>
-	<classpathentry kind="lib" path="libs/junit-4.4.jar"/>
+	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndomAPI/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/validation/" kind="src" path="src"/>
+	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/stubs/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/" kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="libs/Toolkit.jar"/>
+	<classpathentry kind="lib" path="libs/ToolKit/toolkit.jar" sourcepath="libs/ToolKit/toolkit-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/ToolKit/toolkit-docs.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/BusinessObjects/BusinessObjects.jar" sourcepath="libs/BusinessObjects/BusinessObjects-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/BusinessObjects/BusinessObjects-docs.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
