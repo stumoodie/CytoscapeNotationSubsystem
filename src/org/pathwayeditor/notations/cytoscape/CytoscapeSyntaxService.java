@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.ConnectionRouter;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
@@ -39,10 +40,10 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     public static final int ROOT_UID = 0;
     public static final int NODE_UID = 1;
     public static final int EDGE_UID = 2;
-    private static final String NODE_NAME = "Node";
-    private static final String NODE_DESCN = "Node";
-    private static final String EDGE_NAME = "Edge";
-    private static final String EDGE_DESCN = "Edge";
+    private static final String NODE_NAME = "node";
+    private static final String NODE_DESCN = "node";
+    private static final String EDGE_NAME = "edge";
+    private static final String EDGE_DESCN = "edge";
 
     private static IPropertyDefinition reassignVal(IPropertyDefinition prop,
             String val, boolean isEdit, boolean isVis) {
@@ -89,32 +90,18 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     private final Map<Integer, ILinkObjectType> linkSet = new HashMap<Integer, ILinkObjectType>();
     private final INotationSubsystem notationSubsystem;
     private RootObjectType rmo;
-    // shapes
-    private ShapeObjectType Node;
-    // links
-    private LinkObjectType Edge;
+    private ShapeObjectType node;
+    private LinkObjectType edge;
 
-    public CytoscapeSyntaxService(
-            INotationSubsystem serviceProvider) {
+    public CytoscapeSyntaxService(INotationSubsystem serviceProvider) {
         this.notationSubsystem = serviceProvider;
-        // "Basic Cytoscape Context"
-        // "Context to test code generation of a basic cytoscape"
-        // 1_0_0
         createRMO();
-        // shapes
         createNode();
-
         defineParentingRMO();
-        // shapes parenting
         defineParentingNode();
-
-        // links
         createEdge();
-        // shape set
-        this.shapeSet.put(this.Node.getUniqueId(), this.Node);
-
-        // link set
-        this.linkSet.put(this.Edge.getUniqueId(), this.Edge);
+        this.shapeSet.put(this.node.getUniqueId(), this.node);
+        this.linkSet.put(this.edge.getUniqueId(), this.edge);
     }
 
     public Set<ILinkObjectType> getLinkTypes() {
@@ -135,48 +122,50 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
 
     private void defineParentingRMO() {
         HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
-        set.addAll(Arrays.asList(new IShapeObjectType[] { this.Node }));
+        set.addAll(Arrays.asList(new IShapeObjectType[] { this.node }));
         for (IShapeObjectType child : set) {
             this.rmo.getParentingRules().addChild(child);
         }
     }
 
     private void createNode() {
-        this.Node = new ShapeObjectType(this.notationSubsystem
-                .getSyntaxService(), NODE_UID, NODE_NAME);
-        this.Node.setDescription(NODE_DESCN);
-        this.Node.getDefaultAttributes().setShapeType(
-                PrimitiveShapeType.ELLIPSE);
-        this.Node.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-        this.Node.getDefaultAttributes().setSize(new Size(50, 50));
-        this.Node.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
-        this.Node.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-        this.Node.getDefaultAttributes().setLineWidth(1);
-        this.Node.getDefaultAttributes().setUrl("http://");
-        EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
-                .noneOf(EditableShapeAttributes.class);
+        this.node = new ShapeObjectType(this, NODE_UID, NODE_NAME);
+        this.node.setDescription(NODE_DESCN);
+        this.node.getDefaultAttributes().setDescription("");
+        this.node.getDefaultAttributes().setDetailedDescription("");
+        this.node.getDefaultAttributes().setName("");
+        this.node.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);
+        this.node.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+        this.node.getDefaultAttributes().setSize(new Size(50, 50));
+        this.node.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
+        this.node.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+        this.node.getDefaultAttributes().setLineWidth(1);
+        this.node.getDefaultAttributes().setUrl("");
+        EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
         editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
         editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
         editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
         editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
-        this.Node.setEditableAttributes(editableAttributes);
+        this.node.setEditableAttributes(editableAttributes);
     }
 
     private void defineParentingNode() {
-        this.Node.getParentingRules().clear();
+        this.node.getParentingRules().clear();
     }
 
     public ShapeObjectType getNode() {
-        return this.Node;
+        return this.node;
     }
 
     private void createEdge() {
-        this.Edge = new LinkObjectType(this.notationSubsystem
-                .getSyntaxService(), EDGE_UID, EDGE_NAME);
-        this.Edge.setDescription(EDGE_DESCN);
-        this.Edge.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
-        this.Edge.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
-        this.Edge.getDefaultLinkAttributes().setLineWidth(1);
+        this.edge = new LinkObjectType(this, EDGE_UID, EDGE_NAME);
+        this.edge.setDescription(EDGE_DESCN);
+        this.edge.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
+        this.edge.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
+        this.edge.getDefaultLinkAttributes().setLineWidth(1);
+        this.edge.getDefaultLinkAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
+        this.edge.getDefaultLinkAttributes().setName("");
+        this.edge.getDefaultLinkAttributes().setUrl("");
         EnumSet<LinkEditableAttributes> editableAttribute = EnumSet
                 .noneOf(LinkEditableAttributes.class);
         editableAttribute.add(LinkEditableAttributes.COLOUR);
@@ -184,9 +173,9 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         editableAttribute.add(LinkEditableAttributes.LINE_WIDTH);
         IPropertyDefinition Interacts = reassignVal(getPropInteracts(), " ",
                 true, false);
-        Edge.getDefaultLinkAttributes().addPropertyDefinition(Interacts);
+        edge.getDefaultLinkAttributes().addPropertyDefinition(Interacts);
 
-        LinkTerminusDefinition sport = this.Edge.getSourceTerminusDefinition();
+        LinkTerminusDefinition sport = this.edge.getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 0);// to set default
         // offset value
         sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
@@ -203,7 +192,7 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         srcEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
         sport.setEditableAttributes(srcEditableAttribute);
 
-        LinkTerminusDefinition tport = this.Edge.getTargetTerminusDefinition();
+        LinkTerminusDefinition tport = this.edge.getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 0);// to set default
         // offset value
         tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
@@ -220,13 +209,11 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         tgtEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
         tport.setEditableAttributes(srcEditableAttribute);
 
-        // this.Edge.setDetailedDescription(detailedDescription);
-        this.Edge.getDefaultLinkAttributes().setUrl("http://");
-        this.Edge.getLinkConnectionRules().addConnection(this.Node, this.Node);
+        this.edge.getLinkConnectionRules().addConnection(this.node, this.node);
     }
 
     public LinkObjectType getEdge() {
-        return this.Edge;
+        return this.edge;
     }
 
     private IPropertyDefinition getPropInteracts() {
