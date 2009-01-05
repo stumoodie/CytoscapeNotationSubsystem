@@ -160,6 +160,9 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     private void createEdge() {
         this.edge = new LinkObjectType(this, EDGE_UID, EDGE_NAME);
         this.edge.setDescription(EDGE_DESCN);
+        
+        this.edge.getDefaultLinkAttributes().setDescription("");
+        this.edge.getDefaultLinkAttributes().setDetailedDescription("");
         this.edge.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
         this.edge.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
         this.edge.getDefaultLinkAttributes().setLineWidth(1);
@@ -178,7 +181,7 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.edge.getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 0);// to set default
         // offset value
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -195,7 +198,7 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.edge.getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 0);// to set default
         // offset value
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
