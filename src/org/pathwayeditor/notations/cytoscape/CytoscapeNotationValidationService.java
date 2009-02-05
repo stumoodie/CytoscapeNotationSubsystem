@@ -1,6 +1,6 @@
 package org.pathwayeditor.notations.cytoscape;
 
-import java.util.List;
+import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
@@ -8,45 +8,48 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
 import org.pathwayeditor.businessobjects.notationsubsystem.IValidationReport;
 import org.pathwayeditor.businessobjects.notationsubsystem.IValidationRuleDefinition;
+import org.pathwayeditor.notations.cytoscape.validation.CytoscapeValidator;
 
 
 public class CytoscapeNotationValidationService implements INotationValidationService {
     private final CytoscapeNotationSubsystem notationSubsystem;
+    private final CytoscapeValidator validator;
     
     public CytoscapeNotationValidationService(CytoscapeNotationSubsystem notationSubsystem) {
         this.notationSubsystem = notationSubsystem;
+        this.validator = CytoscapeValidator.getInstance();
     }
     
-    public ICanvas getMapBeingValidated() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+    public ICanvas getCanvasBeingValidated() {
+        return this.validator.getCanvas();
     }
 
-    public List<IValidationRuleDefinition> getRules() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+    public Set<IValidationRuleDefinition> getRules() {
+    	return this.validator.getRuleStore().getAllRuleDefinitions();
     }
 
     public IValidationReport getValidationReport() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+        return this.validator.getValidationReport();
     }
 
-    public boolean hasMapBeenValidated() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+    public boolean hasBeenValidated() {
+    	return this.validator.hasBeenValidated();
     }
 
     public boolean isImplemented() {
-        return false;
+        return true;
     }
 
     public boolean isReadyToValidate() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+        return this.validator.getCanvas() != null;
     }
 
-    public void setMapToValidate(ICanvas mapToValidate) {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+    public void setCanvasToValidate(ICanvas mapToValidate) {
+    	this.validator.setCanvas(mapToValidate);
     }
 
-    public void validateMap() {
-        throw new UnsupportedOperationException("validation not implemented for this notation");
+    public void validate() {
+    	this.validator.validateCanvas();
     }
 
     public INotation getNotation() {

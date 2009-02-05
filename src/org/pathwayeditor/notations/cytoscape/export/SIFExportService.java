@@ -1,78 +1,69 @@
 package org.pathwayeditor.notations.cytoscape.export;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
-import org.pathwayeditor.businessobjectsAPI.IMap;
-import org.pathwayeditor.contextadapter.publicapi.ExportServiceException;
-import org.pathwayeditor.contextadapter.publicapi.IContext;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterExportService;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterServiceProvider;
-import org.pathwayeditor.contextadapter.publicapi.IContextAdapterValidationService;
-import org.pathwayeditor.contextadapter.toolkit.ndom.ExportAdapterCreationException;
-import org.pathwayeditor.contextadapter.toolkit.ndom.IExportAdapter;
-import org.pathwayeditor.contextadapter.toolkit.ndom.INDOMValidationService;
-import org.pathwayeditor.contextadapter.toolkit.ndom.INdomModel;
+import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.businessobjects.notationsubsystem.IValidationReport;
+import org.pathwayeditor.notations.cytoscape.validation.CytoscapeValidator;
 
-import org.pathwayeditor.notations.cytoscape.ndomAPI.IGraph;
+import cytoscape.CyNetwork;
+import cytoscape.data.writers.InteractionWriter;
 
-public class SIFExportService implements IContextAdapterExportService {
-	public static final String DISPLAYNAME = "CYTOSCAPE SIF";
-	public static final String SIF = "sif";
-	private IExportAdapter<IGraph> generator;
-	private IContext context;
-	private IContextAdapterServiceProvider serviceProvider;
-	final String CODE = "cytoscape_sif";
-	private OutputStream fos;
-	private INdomModel ndom;
-	private IContextAdapterValidationService validator;
-	private StreamService streamer;
-	private INDOMValidationService ndomValidationService;
+public class SIFExportService implements INotationExportService {
+	public static final String DISPLAYNAME = "Cytoscape SIF File";
+	private static final String SUFFIX = "sif";
+	private static final String VALIDATION_ERROR = "The map is invalid and cannot be exported. Run validation to identify problem";
+	private final INotationSubsystem serviceProvider;
+	private final String CODE = "cytoscape_sif";
+	private Writer fos;
 
-	public SIFExportService(IContextAdapterServiceProvider provider, IExportAdapter<IGraph> generator, INDOMValidationService ndomValidation) {
-		this.serviceProvider = provider;
-		context = provider.getContext();
-		validator = serviceProvider.getValidationService();
-		this.generator = generator;
-		streamer = new StreamService();
-		this.ndomValidationService=ndomValidation;
+	public SIFExportService(INotationSubsystem notationService) {
+		this.serviceProvider = notationService;
 	}
 
-	public void exportMap(IMap map, File exportFile) throws ExportServiceException {
+	public void exportMap(ICanvas map, File exportFile) throws ExportServiceException {
+		if(map == null || exportFile == null) throw new IllegalArgumentException("parameters cannot be null");
+		
 		try {
-			ndom = null;
-			validateGraph(map);
-			if (validator.getValidationReport().isMapValid()) {
-				generator.createTarget((IGraph) ndom);
-				fos = streamer.makeOutStream(exportFile);
-				generator.writeTarget(fos);
-			}
-		} catch (ExportAdapterCreationException e) {
-			throw new ExportServiceException(e);
+			validate(map);
+			this.fos = new FileWriter(exportFile);
+			INdomBuilder ndomBuilder = new NDOMBuilder(map);
+			ndomBuilder.buildNdom();
+			CyNetwork network = (CyNetwork)ndomBuilder.getNDom();
+			InteractionWriter.writeInteractions(network, this.fos);
 		} catch (IOException e) {
 			throw new ExportServiceException(e);
-		} finally {
-			try {
-				if (fos != null)
-					fos.close();
-			} catch (Exception e) {
+		}
+		finally{
+			if(this.fos != null){
+				try {
+					this.fos.close();
+				} catch (IOException e) {
+					// suppress exception from close as we are in a finally clause 
+				}
 			}
 		}
 	}
 
-	void validateGraph(IMap map) {
-		validator.setMapToValidate(map);
-		validator.validateMap();
-		ndom = ndomValidationService.getNDOM();
+	private void validate(ICanvas map) throws ExportServiceException {
+		CytoscapeValidator validator = CytoscapeValidator.getInstance();
+		validator.setCanvas(map);
+		validator.validateCanvas();
+		IValidationReport report = validator.getValidationReport();
+		if(!report.isValid()){
+			throw new ExportServiceException(VALIDATION_ERROR);
+		}
 	}
 
 	public String getCode() {
 		return CODE;
-	}
-
-	public IContext getContext() {
-		return context;
 	}
 
 	public String getDisplayName() {
@@ -80,27 +71,15 @@ public class SIFExportService implements IContextAdapterExportService {
 	}
 
 	public String getRecommendedSuffix() {
-		return SIF;
+		return SUFFIX;
 	}
 
-	public IContextAdapterServiceProvider getServiceProvider() {
-		return serviceProvider;
+	public INotation getNotation() {
+		return this.serviceProvider.getNotation();
 	}
 
-	protected IExportAdapter<IGraph> getGenerator() {
-		return generator;
-	}
-
-	protected void setFos(OutputStream out) {
-		this.fos = out;
-	}
-
-	protected OutputStream getFos() {
-		return fos;
-	}
-
-	void setStreamer(StreamService streamer) {
-		this.streamer = streamer;
+	public INotationSubsystem getNotationSubsystem() {
+		return this.serviceProvider;
 	}
 
 }

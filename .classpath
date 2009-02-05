@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/pathwayeditor/notations/cytoscape/export/|org/pathwayeditor/notations/cytoscape/ndom/|org/pathwayeditor/notations/cytoscape/ndomAPI/|org/pathwayeditor/notations/cytoscape/validation/" kind="src" path="src"/>
-	<classpathentry excluding="uk/ac/ed/inf/csb/BasicCytoscape1_0_0/export/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/|uk/ac/ed/inf/csb/BasicCytoscape1_0_0/ndom/stubs/" kind="src" path="test"/>
-	<classpathentry kind="lib" path="libs/ToolKit/toolkit.jar" sourcepath="libs/ToolKit/toolkit-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/ToolKit/toolkit-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="libs/BusinessObjects/BusinessObjects.jar" sourcepath="libs/BusinessObjects/BusinessObjects-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Cytoscape_Context_Adapter/libs/BusinessObjects/BusinessObjects-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/CompoundGraph/CompoundGraph.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/commons-cli-1.x-cytoscape-custom.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-cruft-obo.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-geom-rtree.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-geom-spacial.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-graph-dynamic.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-graph-fixed.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-render-export.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-render-immed.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-render-stateful.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-task.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-util-intr.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/giny.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/fing.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape.jar"/>
+	<classpathentry kind="lib" path="libs/junit4.4/junit-4.4.jar" sourcepath="libs/junit4.4/junit-4.4-src.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/cglib-nodep-2.1_3.jar" sourcepath="libs/jmock-2.4.0/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/jmock-2.4.0.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/jmock-junit4-2.4.0.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.4.0/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/tclib.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/ding.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/phoebe.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-export-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-graphics2d-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-graphicsio-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-graphicsio-java-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-graphicsio-ps-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-graphicsio-svg-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-io-2.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-jas-plotter-2.2.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-swing-2.0.3.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-util-2.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/freehep-xml-2.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/BusinessObjects/BusinessObjects.jar" sourcepath="libs/BusinessObjects/BusinessObjects-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/CytoscapeNotationSubsystem/libs/BusinessObjects/BusinessObjects-docs.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/ToolKit/toolkit.jar" sourcepath="libs/ToolKit/toolkit-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/CytoscapeNotationSubsystem/libs/ToolKit/toolkit-docs.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

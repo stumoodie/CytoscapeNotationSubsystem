@@ -1,6 +1,7 @@
 package org.pathwayeditor.notations.cytoscape;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
@@ -11,7 +12,8 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationConversionSe
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralNotation;
+import org.pathwayeditor.notations.cytoscape.export.SIFExportService;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.GeneralNotation;
 
 public class CytoscapeNotationSubsystem implements INotationSubsystem {
 	private static final String GLOBAL_ID = "org.pathwayeditor.notations.cytoscape";
@@ -19,14 +21,18 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 	private static final String NAME = "Cytoscape Context";
 	private static final Version VERS = new Version(1, 0, 0);
 	
-	private CytoscapeSyntaxService syntaxService;
-	private INotation context;
-	private INotationValidationService cytoscapeValidationService;
+	private final CytoscapeSyntaxService syntaxService;
+	private final INotation context;
+	private final INotationValidationService cytoscapeValidationService;
+	private final Set<INotationExportService> exportServices;
+	
 
 	public CytoscapeNotationSubsystem() {
 	    this.context = new GeneralNotation(GLOBAL_ID, DISPLAY_NAME, NAME, VERS);
 		this.syntaxService = new CytoscapeSyntaxService(this);
-		cytoscapeValidationService = new CytoscapeNotationValidationService(this);
+		this.cytoscapeValidationService = new CytoscapeNotationValidationService(this);
+		this.exportServices = new HashSet<INotationExportService>();
+		this.exportServices.add(new SIFExportService(this));
 	}
 	
 
@@ -35,7 +41,7 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 	}
 
 	public Set<INotationExportService> getExportServices() {
-		return Collections.emptySet();
+		return this.exportServices;
 	}
 
 	@SuppressWarnings("unchecked")
