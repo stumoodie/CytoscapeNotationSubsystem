@@ -18,13 +18,6 @@
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/giny.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/fing.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape.jar"/>
-	<classpathentry kind="lib" path="libs/junit4.4/junit-4.4.jar" sourcepath="libs/junit4.4/junit-4.4-src.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/cglib-nodep-2.1_3.jar" sourcepath="libs/jmock-2.4.0/cglib-2.1_3-src.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/hamcrest-library-1.1.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/jmock-2.4.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/jmock-junit4-2.4.0.jar"/>
-	<classpathentry kind="lib" path="libs/jmock-2.4.0/objenesis-1.0.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/tclib.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/ding.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/phoebe.jar"/>
@@ -47,6 +40,18 @@
 	<classpathentry kind="lib" path="libs/ToolKit/toolkit.jar" sourcepath="libs/ToolKit/toolkit-src.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/CytoscapeNotationSubsystem/libs/ToolKit/toolkit-docs.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/cglib-nodep-2.1_3.jar" sourcepath="libs/jmock-2.5.1/cglib-2.1_3-src.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/jmock-2.5.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="lib" path="libs/jmock-2.5.1/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="libs/junit4.5/junit-4.5.jar" sourcepath="libs/junit4.5/junit-4.5-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/CytoscapeNotationSubsystem/libs/junit4.5/javadoc.zip!/javadoc"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
