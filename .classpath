@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape-util-intr.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/giny.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/fing.jar"/>
-	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape.jar"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape.jar" sourcepath="/Cytoscape/src"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/tclib.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/ding.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/phoebe.jar"/>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URISyntaxException;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
@@ -13,17 +14,17 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.IValidationReport;
 import org.pathwayeditor.notations.cytoscape.validation.CytoscapeValidator;
 
-import cytoscape.data.writers.InteractionWriter;
+import cytoscape.data.writers.XGMMLWriter;
 
-public class SIFExportService implements INotationExportService {
-	public static final String DISPLAYNAME = "Cytoscape SIF File";
-	private static final String SUFFIX = "sif";
+public class GMMXLExportService implements INotationExportService {
+	public static final String DISPLAYNAME = "Cytoscape GMMXL File";
+	private static final String SUFFIX = "xml";
 	private static final String VALIDATION_ERROR = "The map is invalid and cannot be exported. Run validation to identify problem";
 	private final INotationSubsystem serviceProvider;
-	private final String CODE = "cytoscape_sif";
+	private final String CODE = "cytoscape_gmmxl";
 	private Writer fos;
 
-	public SIFExportService(INotationSubsystem notationService) {
+	public GMMXLExportService(INotationSubsystem notationService) {
 		this.serviceProvider = notationService;
 	}
 
@@ -36,9 +37,12 @@ public class SIFExportService implements INotationExportService {
 			INdomBuilder ndomBuilder = new NDOMBuilder(map);
 			ndomBuilder.buildNdom();
 			CytoscapeNdom network = (CytoscapeNdom)ndomBuilder.getNDom();
-			InteractionWriter.writeInteractions(network.getNetwork(), this.fos);
+			XGMMLWriter writer = new XGMMLWriter(network.getNetwork(), network.getView());
+			writer.write(this.fos);
 		} catch (IOException e) {
 			throw new ExportServiceException(e);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Potential bug found:", e);
 		}
 		finally{
 			if(this.fos != null){

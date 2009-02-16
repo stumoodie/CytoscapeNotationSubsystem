@@ -12,6 +12,7 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationConversionSe
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
+import org.pathwayeditor.notations.cytoscape.export.GMMXLExportService;
 import org.pathwayeditor.notations.cytoscape.export.SIFExportService;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.GeneralNotation;
 
@@ -33,6 +34,7 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 		this.cytoscapeValidationService = new CytoscapeNotationValidationService(this);
 		this.exportServices = new HashSet<INotationExportService>();
 		this.exportServices.add(new SIFExportService(this));
+		this.exportServices.add(new GMMXLExportService(this));
 	}
 	
 

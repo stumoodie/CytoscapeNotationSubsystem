@@ -22,10 +22,10 @@ public class CytoscapeRuleStore implements IValidationRuleStore {
 	
 	public CytoscapeRuleStore(){
 		RuleStore buildingRuleStore = new RuleStore();
-		ValidationRuleDefinition rule1 = new ValidationRuleDefinition(RULE1_NAME, NAME_CONSISTENCY, RULE1_NUM, RuleLevel.OPTIONAL, RuleEnforcement.WARNING);
+		ValidationRuleDefinition rule1 = new ValidationRuleDefinition(RULE1_NAME, NAME_CONSISTENCY, RULE1_NUM, RuleLevel.MANDATORY, RuleEnforcement.ERROR);
 		rule1.setDesc("Checks that all graph nodes have a unique name assigned to them");
 		buildingRuleStore.addConfiguredRule(new ValidationRuleConfig(rule1));
-		ValidationRuleDefinition rule2 = new ValidationRuleDefinition(RULE2_NAME, NAME_CONSISTENCY, RULE2_NUM, RuleLevel.OPTIONAL, RuleEnforcement.WARNING);
+		ValidationRuleDefinition rule2 = new ValidationRuleDefinition(RULE2_NAME, NAME_CONSISTENCY, RULE2_NUM, RuleLevel.MANDATORY, RuleEnforcement.ERROR);
 		rule2.setDesc("Checks that all graph edges have a unique name assigned to them");
 		buildingRuleStore.addConfiguredRule(new ValidationRuleConfig(rule2));
 		this.ruleStore = buildingRuleStore;

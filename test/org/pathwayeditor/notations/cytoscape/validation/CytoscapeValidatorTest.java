@@ -176,16 +176,16 @@ public class CytoscapeValidatorTest {
 	}
 
 	@Test
-	public final void testValidateCanvasWithWarnings() {
+	public final void testValidateCanvasWithErrors() {
 		this.testInstance.validateCanvas();
 		IValidationReport report = this.testInstance.getValidationReport();
-		assertTrue("valid report", report.isValid());
-		assertTrue("expect warnings", report.hasWarnings());
+		assertFalse("invalid report", report.isValid());
+		assertFalse("expect no warnings", report.hasWarnings());
 		List<IValidationReportItem> actualReportItems = report.getValidationReportItems();
 		assertEquals("expected num report items", EXPECTED_NUM_REPORT_ITEMS, actualReportItems.size());
 		// check that they are warnings
 		for(IValidationReportItem item : actualReportItems){
-			assertEquals("warning item", Severity.WARNING, item.getSeverity());
+			assertEquals("warning item", Severity.ERROR, item.getSeverity());
 		}
 	}
 

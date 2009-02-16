@@ -9,5 +9,4 @@ public interface INdomBuilder {
 	void buildNdom();
 	
 	Object getNDom();
-
 }
