@@ -15,7 +15,6 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Location;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
-import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 
 
 public class CytoscapeMockObjects {
@@ -73,7 +72,6 @@ public class CytoscapeMockObjects {
 //	private static final String EXPECTED_MAP_NAME = "TestExportMap";
 
 	private final Mockery mockery;
-	private INotationSubsystem contextService;
 	private ICanvas mockCanvas;
 	private IModel mockModel;
 	private IShapeNode mockShapeNode1;
@@ -98,7 +96,6 @@ public class CytoscapeMockObjects {
 	public CytoscapeMockObjects(Mockery mockery, final String expectedMapName){
 //		this.expectedMapName = expectedMapName;
 		this.mockery = mockery;
-		this.contextService = mockery.mock(INotationSubsystem.class);
 		this.mockCanvas = mockery.mock(ICanvas.class, "mockCanvas");
 		this.mockModel = mockery.mock(IModel.class, "mockModel");
 		this.mockShapeNode1 = mockery.mock(IShapeNode.class, "mockShapeNode1");
@@ -120,7 +117,6 @@ public class CytoscapeMockObjects {
 		this.mockLink3Source = mockery.mock(ILinkTerminus.class, "mockLink3Source");
 		this.mockLink3Target = mockery.mock(ILinkTerminus.class, "mockLink3Target");
 		mockery.checking(new Expectations() {{
-			ignoring(contextService).getNotation();
 			
 			allowing(mockCanvas).getModel(); will(returnValue(mockModel));
 			allowing(mockCanvas).getName(); will(returnValue(expectedMapName));
@@ -225,11 +221,6 @@ public class CytoscapeMockObjects {
 	
 	public Mockery getMockery(){
 		return this.mockery;
-	}
-
-
-	public INotationSubsystem getNotationSubsystem() {
-		return this.contextService;
 	}
 }
 	

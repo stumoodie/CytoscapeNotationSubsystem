@@ -15,25 +15,29 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.notations.cytoscape.CytoscapeNotationSubsystem;
 
 @RunWith(JMock.class)
-public class GMMXLExportServiceTest {
+public class XGMMLExportServiceTest {
 	private static final String TEST_FILE_PREFIX = "test";
-	private static final String TEST_FILE_SUFFIX = ".xml";
+	private static final String TEST_FILE_SUFFIX = ".xgmml";
 //	private static final File EXPECTED_FILE = new File("test/org/pathwayeditor/notations/cytoscape/export/expected_gmmxl.xml");
-	private static final String EXPECTED_SUFFIX = "xml";
+	private static final String EXPECTED_SUFFIX = "xgmml";
 	private static final String EXPECTED_MAP_NAME = "TestExportMap";
 
 	private final Mockery mockery = new JUnit4Mockery();
-	private GMMXLExportService service;
+	private XGMMLExportService service;
 	private File exportFile;
 	private CytoscapeMockObjects mockNdom;
+	private INotationSubsystem notationSubsystem; 
 
 	@Before
 	public void setUp() throws IOException {
+		this.notationSubsystem = new CytoscapeNotationSubsystem();
 		exportFile = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_SUFFIX);
 		this.mockNdom = new CytoscapeMockObjects(mockery, EXPECTED_MAP_NAME);
-		service = new GMMXLExportService(this.mockNdom.getNotationSubsystem());
+		service = new XGMMLExportService(this.notationSubsystem);
 	}
 
 	@After

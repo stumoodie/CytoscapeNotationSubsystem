@@ -57,6 +57,7 @@
         <pathelement location="libs/Cytoscape-2.6.1/freehep-swing-2.0.3.jar"/>
         <pathelement location="libs/Cytoscape-2.6.1/freehep-util-2.0.2.jar"/>
         <pathelement location="libs/Cytoscape-2.6.1/freehep-xml-2.1.1.jar"/>
+        <pathelement location="libs/log4j/log4j-1.2.15.jar"/>
 	</path>
 
 	<path id="test.classpath">

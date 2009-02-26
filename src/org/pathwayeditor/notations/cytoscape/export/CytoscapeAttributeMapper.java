@@ -1,12 +1,12 @@
 package org.pathwayeditor.notations.cytoscape.export;
 
+import giny.view.EdgeView;
+import giny.view.NodeView;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
-
-import giny.view.EdgeView;
-import giny.view.NodeView;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
@@ -61,6 +61,32 @@ public class CytoscapeAttributeMapper {
 		return retVal;
 	}
 	
+	public PrimitiveShapeType getPrimitiveShapeType(int shapeType){
+		PrimitiveShapeType retVal = PrimitiveShapeType.ELLIPSE; // this is the default
+		if(shapeType == NodeView.ELLIPSE){
+			retVal = PrimitiveShapeType.ELLIPSE;
+		}
+		else if (shapeType == NodeView.HEXAGON){
+			retVal = PrimitiveShapeType.HEXAGON;
+		}
+		else if (shapeType == NodeView.OCTAGON){
+			retVal = PrimitiveShapeType.OCTAGON;
+		}
+		else if (shapeType == NodeView.PARALELLOGRAM){
+			retVal = PrimitiveShapeType.RH_PARALLELOGRAM;
+		}
+		else if (shapeType == NodeView.RECTANGLE){
+			retVal = PrimitiveShapeType.RECTANGLE;
+		}
+		else if (shapeType == NodeView.ROUNDED_RECTANGLE){
+			retVal = PrimitiveShapeType.ROUNDED_RECTANGLE;
+		}
+		else if (shapeType == NodeView.TRIANGLE){
+			retVal = PrimitiveShapeType.TRIANGLE;
+		}
+		return retVal;
+	}
+	
 	public Paint getPaintFromColour(RGB colour){
 		return new Color(colour.getRed(), colour.getGreen(), colour.getBlue(), OPAQUE_ALPHA_VALUE);
 	}
@@ -84,6 +110,56 @@ public class CytoscapeAttributeMapper {
 		}
 		else if(endDecoratorType == LinkEndDecoratorShape.EMPTY_DIAMOND){
 			retVal = EdgeView.WHITE_DIAMOND;
+		}
+		return retVal;
+	}
+
+	public LinkEndDecoratorShape getLinkEndDecoratorFrom(int endDecoratorType) {
+		LinkEndDecoratorShape retVal = LinkEndDecoratorShape.NONE;
+		if(endDecoratorType == EdgeView.EDGE_COLOR_ARROW){
+			retVal = LinkEndDecoratorShape.ARROW;
+		}
+		else if(endDecoratorType == EdgeView.BLACK_ARROW){
+			retVal = LinkEndDecoratorShape.ARROW;
+		}
+		else if(endDecoratorType == EdgeView.WHITE_ARROW){
+			retVal = LinkEndDecoratorShape.ARROW;
+		}
+		else if(endDecoratorType == EdgeView.WHITE_CIRCLE){
+			retVal = LinkEndDecoratorShape.EMPTY_CIRCLE;
+		}
+		else if(endDecoratorType == EdgeView.BLACK_CIRCLE){
+			retVal = LinkEndDecoratorShape.EMPTY_CIRCLE;
+		}
+		else if(endDecoratorType == EdgeView.EDGE_COLOR_CIRCLE){
+			retVal = LinkEndDecoratorShape.EMPTY_CIRCLE;
+		}
+		else if(endDecoratorType == EdgeView.BLACK_T){
+			retVal = LinkEndDecoratorShape.BAR;
+		}
+		else if(endDecoratorType == EdgeView.EDGE_COLOR_T){
+			retVal = LinkEndDecoratorShape.BAR;
+		}
+		else if(endDecoratorType == EdgeView.WHITE_T){
+			retVal = LinkEndDecoratorShape.BAR;
+		}
+		else if(endDecoratorType == EdgeView.WHITE_DIAMOND){
+			retVal = LinkEndDecoratorShape.EMPTY_DIAMOND;
+		}
+		else if(endDecoratorType == EdgeView.EDGE_COLOR_DIAMOND){
+			retVal = LinkEndDecoratorShape.DIAMOND;
+		}
+		else if(endDecoratorType == EdgeView.BLACK_DIAMOND){
+			retVal = LinkEndDecoratorShape.DIAMOND;
+		}
+		else if(endDecoratorType == EdgeView.BLACK_DELTA){
+			retVal = LinkEndDecoratorShape.ARROW;
+		}
+		else if(endDecoratorType == EdgeView.EDGE_COLOR_DELTA){
+			retVal = LinkEndDecoratorShape.ARROW;
+		}
+		else if(endDecoratorType == EdgeView.WHITE_DELTA){
+			retVal = LinkEndDecoratorShape.ARROW;
 		}
 		return retVal;
 	}

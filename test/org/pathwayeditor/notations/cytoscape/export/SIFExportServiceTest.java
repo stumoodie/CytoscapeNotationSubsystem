@@ -17,6 +17,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.notations.cytoscape.CytoscapeNotationSubsystem;
 
 @RunWith(JMock.class)
 public class SIFExportServiceTest {
@@ -30,12 +32,14 @@ public class SIFExportServiceTest {
 	private SIFExportService service;
 	private File exportFile;
 	private CytoscapeMockObjects mockNdom;
+	private INotationSubsystem notationSubsystem;
 
 	@Before
 	public void setUp() throws IOException {
+		this.notationSubsystem = new CytoscapeNotationSubsystem();
 		exportFile = File.createTempFile(TEST_FILE_PREFIX, TEST_FILE_SUFFIX);
 		this.mockNdom = new CytoscapeMockObjects(mockery, EXPECTED_MAP_NAME);
-		service = new SIFExportService(this.mockNdom.getNotationSubsystem());
+		service = new SIFExportService(this.notationSubsystem);
 	}
 
 	@After
@@ -70,7 +74,7 @@ public class SIFExportServiceTest {
 	}
 
 	@Test
-	public void testSuffixAsExcpected(){
+	public void testSuffixAsExpected(){
 		assertEquals("expected suffix", EXPECTED_SUFFIX, this.service.getRecommendedSuffix());
 	}
 	

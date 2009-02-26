@@ -10,10 +10,13 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationAutolayoutService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationConversionService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationImportService;
+import org.pathwayeditor.businessobjects.notationsubsystem.INotationPluginService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
-import org.pathwayeditor.notations.cytoscape.export.GMMXLExportService;
+import org.pathwayeditor.notations.cytoscape.export.XGMMLExportService;
 import org.pathwayeditor.notations.cytoscape.export.SIFExportService;
+import org.pathwayeditor.notations.cytoscape.importservice.XGMMLImportService;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.GeneralNotation;
 
 public class CytoscapeNotationSubsystem implements INotationSubsystem {
@@ -26,6 +29,7 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 	private final INotation context;
 	private final INotationValidationService cytoscapeValidationService;
 	private final Set<INotationExportService> exportServices;
+	private final Set<INotationImportService> importServices;
 	
 
 	public CytoscapeNotationSubsystem() {
@@ -34,7 +38,9 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 		this.cytoscapeValidationService = new CytoscapeNotationValidationService(this);
 		this.exportServices = new HashSet<INotationExportService>();
 		this.exportServices.add(new SIFExportService(this));
-		this.exportServices.add(new GMMXLExportService(this));
+		this.exportServices.add(new XGMMLExportService(this));
+		this.importServices = new HashSet<INotationImportService>();
+		this.importServices.add(new XGMMLImportService(this));
 	}
 	
 
@@ -46,13 +52,11 @@ public class CytoscapeNotationSubsystem implements INotationSubsystem {
 		return this.exportServices;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Set getImportServices() {
-		return Collections.emptySet();
+	public Set<INotationImportService> getImportServices() {
+		return this.importServices;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Set getPluginServices() {
+	public Set<INotationPluginService> getPluginServices() {
 		return Collections.emptySet();
 	}
 

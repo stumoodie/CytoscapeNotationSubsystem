@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="BRCA1_MOUSE_Network" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML"  directed="1">
+  <att name="documentVersion" value="1.1"/>
+  <att name="networkMetadata">
+    <rdf:RDF>
+      <rdf:Description rdf:about="http://www.cytoscape.org/">
+        <dc:type>Protein-Protein Interaction</dc:type>
+        <dc:description>N/A</dc:description>
+        <dc:identifier>N/A</dc:identifier>
+        <dc:date>2009-02-19 19:03:52</dc:date>
+        <dc:title>BRCA1_MOUSE_Network</dc:title>
+        <dc:source>http://www.cytoscape.org/</dc:source>
+        <dc:format>Cytoscape-XGMML</dc:format>
+      </rdf:Description>
+    </rdf:RDF>
+  </att>
+  <att type="string" name="backgroundColor" value="#ccccff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="6.972825877800051"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="10.987592697143555"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="41.81920623779297"/>
+  <att type="string" name="quickfind.default_index" value="biopax.node_label"/>
+  <att type="boolean" name="BINARY_NETWORK" value="true"/>
+  <att type="string" name="CPATH_SERVER_DETAILS_URL" value="http://www.pathwaycommons.org/pc/record2.do?id="/>
+  <att type="string" name="CPATH_SERVER_NAME" value="Pathway Commons"/>
+  <node label="60178" id="-2">
+    <att type="string" name="biopax.organism_name" value="Mus musculus"/>
+    <att type="string" name="biopax.xref.ENTREZ_GENE" value="12190"/>
+    <att type="string" name="biopax.ihop_links" value="- &lt;A class=&quot;link&quot; HREF=&quot;http://www.ihop-net.org/UniPub/iHOP/in?syns_1=Fanconi%20anemia%20group%20D1%20protein%20homolog&amp;dbrefs_1=NCBI_REFSEQ__NP%7CNP_033895,NCBI_GENE__ID%7C12190,UNIPROT__AC%7CP97929,NCBI_REFSEQ__NP%7CNP_001074470&quot;&gt;Search iHOP&lt;/A&gt;" cy:hidden="true"/>
+    <att type="string" name="biopax.xref.GENE_SYMBOL" value="Brca2"/>
+    <att type="string" name="biopax.node_label" value="BRCA2_MOUSE"/>
+    <att type="string" name="biopax.name" value="Breast cancer type 2 susceptibility protein homolog"/>
+    <att type="string" name="biopax.relationship_references" value="&lt;LI&gt;- GENE_SYMBOL:  Brca2&lt;/LI&gt;&lt;LI&gt;- &lt;A class=&quot;link&quot; HREF=&quot;http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=gene&amp;cmd=search&amp;term=NP_033895&quot;&gt;REF_SEQ:  NP_033895&lt;/A&gt;&lt;/LI&gt;&lt;LI&gt;- &lt;A class=&quot;link&quot; HREF=&quot;http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=gene&amp;cmd=search&amp;term=12190&quot;&gt;ENTREZ_GENE:  12190&lt;/A&gt;&lt;/LI&gt;&lt;LI&gt;- &lt;A class=&quot;link&quot; HREF=&quot;http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=gene&amp;cmd=search&amp;term=NP_001074470&quot;&gt;REF_SEQ:  NP_001074470&lt;/A&gt;&lt;/LI&gt;" cy:hidden="true"/>
+    <att type="string" name="biopax.comment" value="FUNCTION: Involved in double-strand break repair and/or homologous recombination. May participate in S phase checkpoint activation. SUBUNIT: Interacts with RAD51 and DSS1. Interacts with ubiquitinated FANCD2. Interacts with PALB2, enables the recombinational repair and checkpoints functions. Interacts with WDR16 (By similarity). TISSUE SPECIFICITY: Widely expressed. Highest expression in cerebellum, testis, ileum, appendix, epididymis, ovary and mammary gland. No expression in lung. DEVELOPMENTAL STAGE: In the mammary gland, expression increases dramatically during pregnancy. PTM: Phosphorylated upon DNA damage, probably by ATM or ATR (By similarity). SIMILARITY: Contains 7 BRCA2 repeats. GENE SYNONYMS: Fancd1. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License."/>
+    <att type="string" name="biopax.entity_type" value="Protein"/>
+    <att type="string" name="biopax.short_name" value="BRCA2_MOUSE"/>
+    <att type="list" name="biopax.xref_ids">
+      <att type="string" name="biopax.xref_ids" value="GENE_SYMBOL:Brca2"/>
+      <att type="string" name="biopax.xref_ids" value="REF_SEQ:NP_033895"/>
+      <att type="string" name="biopax.xref_ids" value="ENTREZ_GENE:12190"/>
+      <att type="string" name="biopax.xref_ids" value="UNIPROT:P97929"/>
+      <att type="string" name="biopax.xref_ids" value="REF_SEQ:NP_001074470"/>
+      <att type="string" name="biopax.xref_ids" value="CPATH:60178"/>
+    </att>
+    <att type="string" name="biopax.xref.CPATH" value="60178"/>
+    <att type="string" name="biopax.xref.REF_SEQ" value="NP_033895"/>
+    <att type="string" name="biopax.unification_references" value="&lt;LI&gt;- &lt;A class=&quot;link&quot; HREF=&quot;http://www.pir.uniprot.org/cgi-bin/upEntry?id=P97929&quot;&gt;UNIPROT:  P97929&lt;/A&gt;&lt;/LI&gt;" cy:hidden="true"/>
+    <att type="string" name="canonicalName" value="60178"/>
+    <att type="string" name="biopax.xref.UNIPROT" value="P97929"/>
+    <att type="list" name="biopax.synonyms">
+      <att type="string" name="biopax.synonyms" value="Fanconi anemia group D1 protein homolog"/>
+    </att>
+    <graphics type="ELLIPSE" h="30.0" w="30.0" x="-26.420440673828125" y="29.06249237060547" fill="#660066" width="2" outline="#ffff00" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-12" cy:borderLineType="10.0,4.0"/>
+  </node>
+  <node label="59524" id="-1">
+    <att type="string" name="biopax.organism_name" value="Mus musculus"/>
+    <att type="string" name="biopax.xref.GENE_SYMBOL" value="Brca1"/>
+    <att type="string" name="biopax.node_label" value="BRCA1_MOUSE"/>
+    <att type="string" name="biopax.name" value="Breast cancer type 1 susceptibility protein homolog."/>
+    <att type="string" name="biopax.relationship_references" value="&lt;LI&gt;- GENE_SYMBOL:  Brca1&lt;/LI&gt;" cy:hidden="true"/>
+    <att type="string" name="biopax.comment" value="FUNCTION: Plays a central role in DNA repair by facilitating cellular response to DNA repair. Required for appropriate cell cycle arrests after ionizing irradiation in both the S-phase and the G2 phase of the cell cycle. Involved in transcriptional regulation of P21 in response to DNA damage. Required for FANCD2 targeting to sites of DNA damage. May function as a transcriptional regulator. Mediates E2-dependent ubiquitination. Inhibits lipid synthesis by binding to inactive phosphorylated ACACA and preventing its dephosphorylation (By similarity). SUBUNIT: Part of the BRCA1-associated genome surveillance complex (BASC), which contains BRCA1, MSH2, MSH6, MLH1, ATM, BLM, PMS2 and the RAD50-MRE11-NBN protein complex. This association could be a dynamic process changing throughout the cell cycle and within subnuclear domains. CTIP interacts specifically with the BRCT domains. Interacts with RNA polymerase II holoenzyme. Interacts with SMC1A and COBRA1/NELFB. Binds BRIP1 through the BRCT domains. Interacts with ubiquitinated FANCD2. Interacts with BAP1. Interacts with DCLRE1C/Artemis and CLSPN. Interacts with histone H2AFX and this requires phosphorylation of H2AFX on &apos;Ser-139&apos;. Interacts with CHEK1/CHK1. Interacts with BRCC3 (By similarity). Interacts through its BRCT domains with phosphorylated ACACA and prevents its dephosphorylation. SUBCELLULAR LOCATION: Nucleus (Potential). TISSUE SPECIFICITY: In the embryo, expressed in otic vesicles at day 9.5. At day 10.5, this expression decreases and high levels are found in the neuroectoderm. At days 11-12.5, high levels in differentiating keratinocytes and whisker pad primordia. At days 14-17, expression also observed in kidney epithelial cells. In the adult, highest levels found in spleen, thymus, lymph nodes, epithelial organs, and alveolar and ductal epithelial cells of the mammary gland. Very low levels in brain, kidney, and skin. No expression in heart, liver or lung. DEVELOPMENTAL STAGE: In the mammary gland, expression increases dramatically during pregnancy. Levels fall during lactation and increase again during post-lactational regression of the mammary gland. DOMAIN: The RING-type zinc finger domain interacts with BAP1 (By similarity). PTM: Phosphorylated in response to IR, UV, and various stimuli that cause checkpoint activation, probably by ATM or ATR. SIMILARITY: Contains 2 BRCT domains. SIMILARITY: Contains 1 RING-type zinc finger. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License."/>
+    <att type="string" name="biopax.entity_type" value="Protein"/>
+    <att type="string" name="biopax.short_name" value="BRCA1_MOUSE"/>
+    <att type="list" name="biopax.xref_ids">
+      <att type="string" name="biopax.xref_ids" value="UNIPROT:P48754"/>
+      <att type="string" name="biopax.xref_ids" value="GENE_SYMBOL:Brca1"/>
+      <att type="string" name="biopax.xref_ids" value="CPATH:59524"/>
+    </att>
+    <att type="string" name="biopax.xref.CPATH" value="59524"/>
+    <att type="string" name="biopax.unification_references" value="&lt;LI&gt;- &lt;A class=&quot;link&quot; HREF=&quot;http://www.pir.uniprot.org/cgi-bin/upEntry?id=P48754&quot;&gt;UNIPROT:  P48754&lt;/A&gt;&lt;/LI&gt;" cy:hidden="true"/>
+    <att type="string" name="canonicalName" value="59524"/>
+    <att type="string" name="biopax.xref.UNIPROT" value="P48754"/>
+    <graphics type="OCTAGON" h="30.0" w="29.999998092651367" x="45.895615577697754" y="52.075904846191406" fill="#ff6666" width="1" outline="#3333ff" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-12" cy:borderLineType="solid"/>
+  </node>
+  <edge label="60178 (PARTICIPATES_INTERACTION) 59524" source="-2" target="-1">
+    <att type="string" name="interaction" value="PARTICIPATES_INTERACTION"/>
+    <att type="string" name="canonicalName" value="60178 (PARTICIPATES_INTERACTION) 59524"/>
+    <graphics width="2" fill="#6600ff" cy:sourceArrow="0" cy:targetArrow="12" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="SanSerif-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="60178 (DirectedEdge) 59524" source="-2" target="-1">
+    <att type="string" name="EDGE_TYPE" value="DirectedEdge"/>
+    <att type="string" name="interaction" value="DirectedEdge"/>
+    <att type="string" name="canonicalName" value="60178 (DirectedEdge) 59524"/>
+    <graphics width="1" fill="#006600" cy:sourceArrow="0" cy:targetArrow="3" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="SanSerif-0-10" cy:edgeLineType="LONG_DASH" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="59524 (DirectedEdge) 59524" source="-1" target="-1">
+    <att type="string" name="EDGE_TYPE" value="DirectedEdge"/>
+    <att type="string" name="interaction" value="DirectedEdge"/>
+    <att type="string" name="canonicalName" value="59524 (DirectedEdge) 59524"/>
+    <graphics width="4" fill="#7030a0" cy:sourceArrow="0" cy:targetArrow="0" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="SanSerif-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+</graph>

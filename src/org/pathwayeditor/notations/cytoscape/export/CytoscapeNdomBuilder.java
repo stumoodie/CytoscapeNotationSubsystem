@@ -18,13 +18,13 @@ import cytoscape.ding.DingNetworkView;
 import cytoscape.giny.CytoscapeFingRootGraph;
 import cytoscape.giny.CytoscapeRootGraph;
 
-public class NDOMBuilder implements INdomBuilder {
+public class CytoscapeNdomBuilder implements INdomBuilder {
 	private final ICanvas canvas;
 	private CytoscapeNdom ndom;
 	private final Map<Integer, Integer> nodeMapping;
 	private final Map<Integer, Integer> edgeMapping;
 
-	public NDOMBuilder(ICanvas canvas) {
+	public CytoscapeNdomBuilder(ICanvas canvas) {
 		this.canvas = canvas;
 		this.nodeMapping = new HashMap<Integer, Integer>();
 		this.edgeMapping = new HashMap<Integer, Integer>();

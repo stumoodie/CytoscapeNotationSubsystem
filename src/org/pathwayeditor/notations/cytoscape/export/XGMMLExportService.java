@@ -16,15 +16,15 @@ import org.pathwayeditor.notations.cytoscape.validation.CytoscapeValidator;
 
 import cytoscape.data.writers.XGMMLWriter;
 
-public class GMMXLExportService implements INotationExportService {
-	public static final String DISPLAYNAME = "Cytoscape GMMXL File";
-	private static final String SUFFIX = "xml";
+public class XGMMLExportService implements INotationExportService {
+	public static final String DISPLAYNAME = "Cytoscape XGMML File";
+	private static final String SUFFIX = "xgmml";
 	private static final String VALIDATION_ERROR = "The map is invalid and cannot be exported. Run validation to identify problem";
 	private final INotationSubsystem serviceProvider;
-	private final String CODE = "cytoscape_gmmxl";
+	private final String CODE = "cytoscape_xgmml";
 	private Writer fos;
 
-	public GMMXLExportService(INotationSubsystem notationService) {
+	public XGMMLExportService(INotationSubsystem notationService) {
 		this.serviceProvider = notationService;
 	}
 
@@ -34,7 +34,7 @@ public class GMMXLExportService implements INotationExportService {
 		try {
 			validate(map);
 			this.fos = new FileWriter(exportFile);
-			INdomBuilder ndomBuilder = new NDOMBuilder(map);
+			INdomBuilder ndomBuilder = new CytoscapeNdomBuilder(map);
 			ndomBuilder.buildNdom();
 			CytoscapeNdom network = (CytoscapeNdom)ndomBuilder.getNDom();
 			XGMMLWriter writer = new XGMMLWriter(network.getNetwork(), network.getView());

@@ -1,13 +1,13 @@
 package org.pathwayeditor.notations.cytoscape.export;
 
 import cytoscape.CyNetwork;
-import cytoscape.ding.DingNetworkView;
+import cytoscape.view.CyNetworkView;
 
 public class CytoscapeNdom {
 	private final CyNetwork network;
-	private final DingNetworkView view;
+	private final CyNetworkView view;
 	
-	public CytoscapeNdom(CyNetwork network, DingNetworkView view){
+	public CytoscapeNdom(CyNetwork network, CyNetworkView view){
 		this.network = network;
 		this.view = view;
 	}
@@ -22,7 +22,7 @@ public class CytoscapeNdom {
 	/**
 	 * @return the view
 	 */
-	public DingNetworkView getView() {
+	public CyNetworkView getView() {
 		return view;
 	}
 	

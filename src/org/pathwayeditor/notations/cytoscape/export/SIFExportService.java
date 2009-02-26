@@ -33,7 +33,7 @@ public class SIFExportService implements INotationExportService {
 		try {
 			validate(map);
 			this.fos = new FileWriter(exportFile);
-			INdomBuilder ndomBuilder = new NDOMBuilder(map);
+			INdomBuilder ndomBuilder = new CytoscapeNdomBuilder(map);
 			ndomBuilder.buildNdom();
 			CytoscapeNdom network = (CytoscapeNdom)ndomBuilder.getNDom();
 			InteractionWriter.writeInteractions(network.getNetwork(), this.fos);
