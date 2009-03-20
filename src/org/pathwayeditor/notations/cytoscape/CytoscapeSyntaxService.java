@@ -2,6 +2,7 @@ package org.pathwayeditor.notations.cytoscape;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     private static final String NODE_DESCN = "node";
     private static final String EDGE_NAME = "edge";
     private static final String EDGE_DESCN = "edge";
+	private static final int NUM_ROOT_OTS = 1;
 
     private static IPropertyDefinition reassignVal(IPropertyDefinition prop,
             String val, boolean isEdit, boolean isVis) {
@@ -146,6 +148,8 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
         editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
         editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
+        editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
+        editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
         this.node.setEditableAttributes(editableAttributes);
     }
 
@@ -161,14 +165,14 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         this.edge = new LinkObjectType(this, EDGE_UID, EDGE_NAME);
         this.edge.setDescription(EDGE_DESCN);
         
-        this.edge.getDefaultLinkAttributes().setDescription("");
-        this.edge.getDefaultLinkAttributes().setDetailedDescription("");
-        this.edge.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
-        this.edge.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
-        this.edge.getDefaultLinkAttributes().setLineWidth(1);
-        this.edge.getDefaultLinkAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
-        this.edge.getDefaultLinkAttributes().setName("");
-        this.edge.getDefaultLinkAttributes().setUrl("");
+        this.edge.getDefaultAttributes().setDescription("");
+        this.edge.getDefaultAttributes().setDetailedDescription("");
+        this.edge.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
+        this.edge.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+        this.edge.getDefaultAttributes().setLineWidth(1);
+        this.edge.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
+        this.edge.getDefaultAttributes().setName("");
+        this.edge.getDefaultAttributes().setUrl("");
         EnumSet<LinkEditableAttributes> editableAttribute = EnumSet
                 .noneOf(LinkEditableAttributes.class);
         editableAttribute.add(LinkEditableAttributes.COLOUR);
@@ -176,40 +180,40 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         editableAttribute.add(LinkEditableAttributes.LINE_WIDTH);
         IPropertyDefinition Interacts = reassignVal(getPropInteracts(), " ",
                 true, false);
-        edge.getDefaultLinkAttributes().addPropertyDefinition(Interacts);
+        edge.getDefaultAttributes().addPropertyDefinition(Interacts);
 
         LinkTerminusDefinition sport = this.edge.getSourceTerminusDefinition();
-        sport.getLinkTerminusDefaults().setGap((short) 0);// to set default
+        sport.getDefaultAttributes().setGap((short) 0);// to set default
         // offset value
-        sport.getLinkTerminusDefaults().setEndDecoratorType(
+        sport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
-        sport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
-        sport.getLinkTerminusDefaults().setTermDecoratorType(
+        sport.getDefaultAttributes().setEndSize(new Size(10, 10));
+        sport.getDefaultAttributes().setTermDecoratorType(
                 PrimitiveShapeType.RECTANGLE);
-        sport.getLinkTerminusDefaults().setTermSize(new Size(0, 0));
-        sport.getLinkTerminusDefaults().setTermColour(new RGB(255, 255, 255));
+        sport.getDefaultAttributes().setTermSize(new Size(0, 0));
+        sport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> srcEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);
         srcEditableAttribute
-                .add(LinkTermEditableAttributes.TERM_DECORATOR_TYPE);
-        srcEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
+                .add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
+        srcEditableAttribute.add(LinkTermEditableAttributes.END_SIZE);
         sport.setEditableAttributes(srcEditableAttribute);
 
         LinkTerminusDefinition tport = this.edge.getTargetTerminusDefinition();
-        tport.getLinkTerminusDefaults().setGap((short) 0);// to set default
+        tport.getDefaultAttributes().setGap((short) 0);// to set default
         // offset value
-        tport.getLinkTerminusDefaults().setEndDecoratorType(
+        tport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
-        tport.getLinkTerminusDefaults().setEndSize(new Size(10, 10));
-        tport.getLinkTerminusDefaults().setTermDecoratorType(
+        tport.getDefaultAttributes().setEndSize(new Size(10, 10));
+        tport.getDefaultAttributes().setTermDecoratorType(
                 PrimitiveShapeType.RECTANGLE);
-        tport.getLinkTerminusDefaults().setTermSize(new Size(0, 0));
-        tport.getLinkTerminusDefaults().setTermColour(new RGB(255, 255, 255));
+        tport.getDefaultAttributes().setTermSize(new Size(0, 0));
+        tport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> tgtEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);
         tgtEditableAttribute
-                .add(LinkTermEditableAttributes.TERM_DECORATOR_TYPE);
-        tgtEditableAttribute.add(LinkTermEditableAttributes.TERM_COLOUR);
+                .add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
+        tgtEditableAttribute.add(LinkTermEditableAttributes.END_SIZE);
         tport.setEditableAttributes(srcEditableAttribute);
 
         this.edge.getLinkConnectionRules().addConnection(this.node, this.node);
@@ -292,12 +296,43 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         return this.shapeSet.values().iterator();
     }
 
-    public INotation getNotation() {
-        return this.notationSubsystem.getNotation();
-    }
+      private <T extends IObjectType> T findObjectTypeByName(Collection<? extends T> otSet, String name){
+        T retVal = null;
+        for(T val : otSet){
+          if(val.getName().equals(name)){
+            retVal = val;
+            break;
+          }
+        }
+        return retVal;
+      }
+      
+      public ILinkObjectType findLinkObjectTypeByName(String name) {
+        return findObjectTypeByName(this.linkSet.values(), name);
+      }
 
-    public INotationSubsystem getNotationSubsystem() {
-        return this.notationSubsystem;
-    }
+      public IShapeObjectType findShapeObjectTypeByName(String name) {
+        return findObjectTypeByName(this.shapeSet.values(), name);
+      }
+
+      public int numLinkObjectTypes() {
+        return this.linkSet.size();
+      }
+
+      public int numShapeObjectTypes() {
+        return this.shapeSet.size();
+      }
+
+      public int numObjectTypes(){
+        return this.numLinkObjectTypes() + this.numShapeObjectTypes() + NUM_ROOT_OTS;
+      }
+
+      public INotationSubsystem getNotationSubsystem() {
+    	  return this.notationSubsystem;
+      }
+    	  
+      public INotation getNotation() {
+    	  return this.notationSubsystem.getNotation();
+      }
 
 }
