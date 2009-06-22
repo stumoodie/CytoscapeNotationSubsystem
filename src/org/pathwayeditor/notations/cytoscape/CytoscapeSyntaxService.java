@@ -16,7 +16,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
@@ -138,7 +138,7 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         this.node.getDefaultAttributes().setName("");
         this.node.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);
         this.node.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-        this.node.getDefaultAttributes().setSize(new Size(50, 50));
+        this.node.getDefaultAttributes().setSize(new Dimension(50, 50));
         this.node.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
         this.node.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
         this.node.getDefaultAttributes().setLineWidth(1);
@@ -187,10 +187,10 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         // offset value
         sport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
-        sport.getDefaultAttributes().setEndSize(new Size(10, 10));
+        sport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
         sport.getDefaultAttributes().setTermDecoratorType(
                 PrimitiveShapeType.RECTANGLE);
-        sport.getDefaultAttributes().setTermSize(new Size(0, 0));
+        sport.getDefaultAttributes().setTermSize(new Dimension(0, 0));
         sport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> srcEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);
@@ -204,10 +204,10 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         // offset value
         tport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
-        tport.getDefaultAttributes().setEndSize(new Size(10, 10));
+        tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
         tport.getDefaultAttributes().setTermDecoratorType(
                 PrimitiveShapeType.RECTANGLE);
-        tport.getDefaultAttributes().setTermSize(new Size(0, 0));
+        tport.getDefaultAttributes().setTermSize(new Dimension(0, 0));
         tport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> tgtEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);

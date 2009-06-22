@@ -13,22 +13,22 @@ import org.pathwayeditor.businessobjects.drawingprimitives.ILinkAttribute;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeAttribute;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Location;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Point;
+import org.pathwayeditor.figure.geometry.Dimension;
 
 @RunWith(JMock.class)
 public class DogLegBuilderTest {
-	private static final Location NODE_LOCATION = new Location(1, -1);
-	private static final Size NODE_SIZE = new Size(11, 21);
-	private static final Location BP1_POSITION = new Location(-4, -11);
-	private static final Location BP1_SRC_OFFSET = new Location(-5, 0);
-	private static final Location BP1_TGT_OFFSET = new Location(-10, -10);
-	private static final Location BP2_POSITION = new Location(-4, 9);
-	private static final Location BP2_SRC_OFFSET = new Location(-5, 20);
-	private static final Location BP2_TGT_OFFSET = new Location(-10, 10);
-	private static final Location BP3_POSITION = new Location(6, 9);
-	private static final Location BP3_SRC_OFFSET = new Location(5, 20);
-	private static final Location BP3_TGT_OFFSET = new Location(0, 10);
+	private static final Point NODE_LOCATION = new Point(1, -1);
+	private static final Dimension NODE_SIZE = new Dimension(11, 21);
+	private static final Point BP1_POSITION = new Point(-4, -11);
+	private static final Point BP1_SRC_OFFSET = new Point(-5, 0);
+	private static final Point BP1_TGT_OFFSET = new Point(-10, -10);
+	private static final Point BP2_POSITION = new Point(-4, 9);
+	private static final Point BP2_SRC_OFFSET = new Point(-5, 20);
+	private static final Point BP2_TGT_OFFSET = new Point(-10, 10);
+	private static final Point BP3_POSITION = new Point(6, 9);
+	private static final Point BP3_SRC_OFFSET = new Point(5, 20);
+	private static final Point BP3_TGT_OFFSET = new Point(0, 10);
 
 	private final Mockery mockery = new JUnit4Mockery();
 	

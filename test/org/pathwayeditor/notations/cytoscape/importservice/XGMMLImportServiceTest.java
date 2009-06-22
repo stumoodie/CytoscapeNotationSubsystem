@@ -16,10 +16,10 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Alignment;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Location;
+import org.pathwayeditor.figure.geometry.Point;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.notations.cytoscape.CytoscapeNotationSubsystem;
@@ -40,8 +40,8 @@ public class XGMMLImportServiceTest {
 	private static final int EDGE1_ATTRIB_IDX = 1;
 	private static final int EDGE2_ATTRIB_IDX = 2;
 	private static final int EDGE3_ATTRIB_IDX = 3;
-	private static final Location EXPECTED_NODE1_LOCATION = new Location(46, 52); 
-	private static final Size EXPECTED_NODE1_SIZE = new Size(35, 35);
+	private static final Point EXPECTED_NODE1_LOCATION = new Point(46, 52); 
+	private static final Dimension EXPECTED_NODE1_SIZE = new Dimension(35, 35);
 	private static final PrimitiveShapeType EXPECTED_NODE1_SHAPE_TYPE = PrimitiveShapeType.OCTAGON;
 	private static final RGB EXPECTED_NODE1_FILL_COLOUR = new RGB(0xff, 0x66, 0x66); 
 	private static final RGB EXPECTED_NODE1_LINE_COLOUR = new RGB(0x33, 0x33, 0xff);
@@ -55,8 +55,8 @@ public class XGMMLImportServiceTest {
 	private static final boolean EXPECTED_NODE1_NAME_VISIBILITY = true;
 	private static final RGB EXPECTED_NODE1_TEXT_COLOUR = new RGB(0, 0, 0);
 	private static final Alignment EXPECTED_NODE1_HORIZ_ALIGNMENT = Alignment.CENTER;
-	private static final Location EXPECTED_NODE2_LOCATION = new Location(-26, 29); 
-	private static final Size EXPECTED_NODE2_SIZE = new Size(35, 35);
+	private static final Point EXPECTED_NODE2_LOCATION = new Point(-26, 29); 
+	private static final Dimension EXPECTED_NODE2_SIZE = new Dimension(35, 35);
 	private static final PrimitiveShapeType EXPECTED_NODE2_SHAPE_TYPE = PrimitiveShapeType.ELLIPSE;
 	private static final RGB EXPECTED_NODE2_FILL_COLOUR = new RGB(0x66, 0x0, 0x66); 
 	private static final RGB EXPECTED_NODE2_LINE_COLOUR = new RGB(0xff, 0xff, 0x0);
@@ -99,17 +99,17 @@ public class XGMMLImportServiceTest {
 	private static final int EXPECTED_NUM_EDGE1_BENDPOINTS = 3;
 	private static final int EXPECTED_NUM_EDGE2_BENDPOINTS = 0;
 	private static final int EXPECTED_EDGE1_BP1 = 0;
-	private static final Location EXPECTED_EDGE1_BP1_LOCATION = new Location(29, 35);
-	private static final Location EXPECTED_EDGE1_BP1_OFFSET1 = new Location(-17, 0);
-	private static final Location EXPECTED_EDGE1_BP1_OFFSET2 = new Location(-34, -17);
+	private static final Point EXPECTED_EDGE1_BP1_LOCATION = new Point(29, 35);
+	private static final Point EXPECTED_EDGE1_BP1_OFFSET1 = new Point(-17, 0);
+	private static final Point EXPECTED_EDGE1_BP1_OFFSET2 = new Point(-34, -17);
 	private static final int EXPECTED_EDGE1_BP2 = 1;
-	private static final Location EXPECTED_EDGE1_BP2_LOCATION = new Location(29, 69);
-	private static final Location EXPECTED_EDGE1_BP2_OFFSET1 = new Location(-17, 34);
-	private static final Location EXPECTED_EDGE1_BP2_OFFSET2 = new Location(-34, 17);
+	private static final Point EXPECTED_EDGE1_BP2_LOCATION = new Point(29, 69);
+	private static final Point EXPECTED_EDGE1_BP2_OFFSET1 = new Point(-17, 34);
+	private static final Point EXPECTED_EDGE1_BP2_OFFSET2 = new Point(-34, 17);
 	private static final int EXPECTED_EDGE1_BP3 = 2;
-	private static final Location EXPECTED_EDGE1_BP3_LOCATION = new Location(63, 69);
-	private static final Location EXPECTED_EDGE1_BP3_OFFSET1 = new Location(17, 34);
-	private static final Location EXPECTED_EDGE1_BP3_OFFSET2 = new Location(0, 17);
+	private static final Point EXPECTED_EDGE1_BP3_LOCATION = new Point(63, 69);
+	private static final Point EXPECTED_EDGE1_BP3_OFFSET1 = new Point(17, 34);
+	private static final Point EXPECTED_EDGE1_BP3_OFFSET2 = new Point(0, 17);
 	
 	@Before
 	public void setUp() throws Exception {

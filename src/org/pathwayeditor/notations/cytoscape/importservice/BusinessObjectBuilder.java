@@ -20,10 +20,10 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Location;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Dimension;
+import org.pathwayeditor.figure.geometry.Point;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
 import org.pathwayeditor.businessobjects.notationsubsystem.ImportServiceException;
 import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType;
@@ -181,20 +181,20 @@ public class BusinessObjectBuilder implements IBusinessObjectBuilder {
 		}
 	}
 	
-	private static Size convertSize(double floatingWidth, double floatingHeight) throws ImportServiceException{
+	private static Dimension convertSize(double floatingWidth, double floatingHeight) throws ImportServiceException{
 		long width = Math.round(floatingWidth);
 		long height = Math.round(floatingHeight);
 		validateIntegerRange(width);
 		validateIntegerRange(height);
-		return new Size((int)width, (int)height); 
+		return new Dimension((int)width, (int)height); 
 	}
 
-	private static Location convertToLocation(double floatingWidth, double floatingHeight) throws ImportServiceException{
+	private static Point convertToLocation(double floatingWidth, double floatingHeight) throws ImportServiceException{
 		long width = Math.round(floatingWidth);
 		long height = Math.round(floatingHeight);
 		validateIntegerRange(width);
 		validateIntegerRange(height);
-		return new Location((int)width, (int)height); 
+		return new Point((int)width, (int)height); 
 	}
 
 	private static RGB convertToRGB(Color borderPaint) {

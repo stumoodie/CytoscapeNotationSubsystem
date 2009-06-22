@@ -1,13 +1,13 @@
 package org.pathwayeditor.notations.cytoscape.importservice;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Location;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Dimension;
+import org.pathwayeditor.figure.geometry.Point;
 
 public class DogLegBuilder {
 	private final ILinkEdge selfEdge;
-	private Location srcAnchorPoint;
-	private Location tgtAnchorPoint;
+	private Point srcAnchorPoint;
+	private Point tgtAnchorPoint;
 	private int verticalOffset;
 	private int horizontalOffset;
 	
@@ -30,7 +30,7 @@ public class DogLegBuilder {
 
 	private void calculateOffset() {
 		// make sure that the offsets are divisible by 2, this makes sure everything is consistent 
-		Size nodeSize = selfEdge.getSourceShape().getAttribute().getSize();
+		Dimension nodeSize = selfEdge.getSourceShape().getAttribute().getSize();
 		this.horizontalOffset = (int)(nodeSize.getWidth()/2.0f);
 		this.verticalOffset = (int)(nodeSize.getHeight()/2.0f);
 	}
@@ -43,13 +43,13 @@ public class DogLegBuilder {
 	private void createBendPoint(int i, int j) {
 		int xoffset = i * this.horizontalOffset;
 		int yoffset = j * this.verticalOffset;
-		final Location bp1Translation = new Location(xoffset, yoffset);
-		final Location newBp1 = srcAnchorPoint.translate(bp1Translation);
+		final Point bp1Translation = new Point(xoffset, yoffset);
+		final Point newBp1 = srcAnchorPoint.translate(bp1Translation);
 		this.selfEdge.getAttribute().createNewBendPoint(newBp1, bp1Translation, newBp1.difference(this.tgtAnchorPoint));
 	}
 
 	private void calculateAnchorPoints() {
-		Location nodeLocation = selfEdge.getSourceShape().getAttribute().getLocation();
+		Point nodeLocation = selfEdge.getSourceShape().getAttribute().getLocation();
 		srcAnchorPoint = nodeLocation.newY(nodeLocation.getY() - this.verticalOffset);
 		tgtAnchorPoint = nodeLocation.newX(nodeLocation.getX() + this.horizontalOffset);
 	}

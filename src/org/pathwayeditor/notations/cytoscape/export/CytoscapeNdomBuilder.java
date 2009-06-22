@@ -19,6 +19,7 @@ import cytoscape.giny.CytoscapeFingRootGraph;
 import cytoscape.giny.CytoscapeRootGraph;
 
 public class CytoscapeNdomBuilder implements INdomBuilder {
+	private static final int MIN_LINE_WIDTH = 1;
 	private final ICanvas canvas;
 	private CytoscapeNdom ndom;
 	private final Map<Integer, Integer> nodeMapping;
@@ -58,7 +59,7 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 			nodeView.setYPosition(node.getAttribute().getLocation().getX());
 			nodeView.setHeight(node.getAttribute().getSize().getHeight());
 			nodeView.setWidth(node.getAttribute().getSize().getWidth());
-			nodeView.setBorderWidth(node.getAttribute().getLineWidth());
+			nodeView.setBorderWidth(convertLineWidth(node.getAttribute().getLineWidth()));
 			nodeView.setShape(CytoscapeAttributeMapper.getInstance().getCytoscapeShape(node.getAttribute().getPrimitiveShape()));
 			nodeView.setToolTip(node.getAttribute().getDescription());
 			nodeView.setBorderPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(node.getAttribute().getLineColour()));
@@ -66,6 +67,11 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 		}
 	}
 
+	private static int convertLineWidth(double lineWidth){
+		int width = (int)Math.round(lineWidth);
+		return width < MIN_LINE_WIDTH ? MIN_LINE_WIDTH : width;
+	}
+	
 	private void createEdgeAttributes(DingNetworkView localView) {
 		Iterator<ILinkEdge> edgeIterator = this.canvas.getModel().linkEdgeIterator();
 		while(edgeIterator.hasNext()){
@@ -74,7 +80,7 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 			int cyEdgeIdx = this.edgeMapping.get(idx);
 			EdgeView edgeView = localView.getEdgeView(cyEdgeIdx);
 			edgeView.setLineType(EdgeView.STRAIGHT_LINES);
-			edgeView.setStrokeWidth(edge.getAttribute().getLineWidth());
+			edgeView.setStrokeWidth(convertLineWidth(edge.getAttribute().getLineWidth()));
 			edgeView.setToolTip(edge.getAttribute().getDescription());
 			edgeView.setUnselectedPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(edge.getAttribute().getLineColor()));
 			edgeView.setSourceEdgeEnd(CytoscapeAttributeMapper.getInstance().getEndShapeFrom(edge.getAttribute().getSourceTerminus().getEndDecoratorType()));
