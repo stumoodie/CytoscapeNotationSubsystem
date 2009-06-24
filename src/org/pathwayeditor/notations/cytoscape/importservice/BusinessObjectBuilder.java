@@ -20,8 +20,8 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextAnnotationProperty;
 import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.figure.geometry.Point;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
@@ -37,6 +37,7 @@ import cytoscape.view.CyNetworkView;
 
 public class BusinessObjectBuilder implements IBusinessObjectBuilder {
 	private static final int MIN_LINE_WIDTH = 1;
+	private static final String NODE_SHAPE = "curbounds oval";
 	private ICanvas canvas;
 	private final CytoscapeNdom ndom;
 	private final INotationSyntaxService syntaxService;
@@ -89,12 +90,9 @@ public class BusinessObjectBuilder implements IBusinessObjectBuilder {
 		EdgeView edgeView = ndom.getView().getEdgeView(cyEdge.getRootGraphIndex());
 		int lineWidth = Math.round(edgeView.getStrokeWidth());
 		linkAttribute.setLineWidth(convertLineWidth(lineWidth));
-		linkAttribute.setName(cyEdge.getIdentifier());
 		linkAttribute.setLineColor(convertToRGB((Color)edgeView.getUnselectedPaint()));
 		linkAttribute.setLineStyle(convertToLineStyle((BasicStroke)edgeView.getStroke()));
-		linkAttribute.setDescription("");
-		linkAttribute.setDetailedDescription("");
-		linkAttribute.setName(edgeView.getLabel().getText());
+		((IPlainTextAnnotationProperty)linkAttribute.getProperty(CytoscapeSyntaxService.EDGE_NAME_PROP)).setValue(edgeView.getLabel().getText());
 		linkAttribute.getSourceTerminus().setEndDecoratorType(convertToLinkEndDecorator(edgeView.getSourceEdgeEnd()));
 		linkAttribute.getTargetTerminus().setEndDecoratorType(convertToLinkEndDecorator(edgeView.getTargetEdgeEnd()));
 	}
@@ -142,9 +140,8 @@ public class BusinessObjectBuilder implements IBusinessObjectBuilder {
 		attribute.setFillColour(convertToRGB((Color)nodeView.getUnselectedPaint()));
 		attribute.setLocation(convertToLocation(nodeView.getXPosition(), nodeView.getYPosition()));
 		attribute.setSize(convertSize(nodeView.getWidth(), nodeView.getHeight()));
-		attribute.setNameVisible(true);
-		attribute.setName(cyNode.getIdentifier());
-		attribute.setPrimitiveShape(convertToPrimititiveShapeType(nodeView.getShape()));
+		attribute.setShapeDefinition(NODE_SHAPE);
+		((IPlainTextAnnotationProperty)attribute.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP)).setValue(nodeView.getLabel().getText());
 	}
 
 	private IShapeNode createNode(Node cyNode) {
@@ -214,9 +211,4 @@ public class BusinessObjectBuilder implements IBusinessObjectBuilder {
 		}
 		return retVal;
 	}
-
-	private static PrimitiveShapeType convertToPrimititiveShapeType(int shape) {
-		return CytoscapeAttributeMapper.getInstance().getPrimitiveShapeType(shape);
-	}
-
 }

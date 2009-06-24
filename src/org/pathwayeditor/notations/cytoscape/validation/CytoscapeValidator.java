@@ -8,6 +8,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.notationsubsystem.IValidationReport;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 import org.pathwayeditor.notationsubsystem.toolkit.validation.IRuleValidationReportBuilder;
 import org.pathwayeditor.notationsubsystem.toolkit.validation.IValidationRuleStore;
 import org.pathwayeditor.notationsubsystem.toolkit.validation.RuleValidationReportBuilder;
@@ -69,11 +70,12 @@ public class CytoscapeValidator {
 		Iterator<ILinkEdge> edgeIterator = this.getCanvas().getModel().linkEdgeIterator();
 		while(edgeIterator.hasNext()){
 			ILinkEdge edge = edgeIterator.next();
-			if(usedNames.contains(edge.getAttribute().getName())){
+			String name = edge.getAttribute().getProperty(CytoscapeSyntaxService.EDGE_NAME_PROP).getValue().toString();
+			if(usedNames.contains(name)){
 				this.reportBuilder.setRuleFailed(edge, CytoscapeRuleStore.RULE1_NUM, NAME_NOT_UNIQUE);
 			}
 			else{
-				usedNames.add(edge.getAttribute().getName());
+				usedNames.add(name);
 			}
 		}
 	}
@@ -83,11 +85,12 @@ public class CytoscapeValidator {
 		Iterator<IShapeNode> nodeIterator = this.getCanvas().getModel().shapeNodeIterator();
 		while(nodeIterator.hasNext()){
 			IShapeNode node = nodeIterator.next();
-			if(usedNames.contains(node.getAttribute().getName())){
+			String name = node.getAttribute().getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString();
+			if(usedNames.contains(name)){
 				this.reportBuilder.setRuleFailed(node, CytoscapeRuleStore.RULE1_NUM, NAME_NOT_UNIQUE);
 			}
 			else{
-				usedNames.add(node.getAttribute().getName());
+				usedNames.add(name);
 			}
 		}
 	}

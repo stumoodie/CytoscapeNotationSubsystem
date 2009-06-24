@@ -80,7 +80,7 @@
 		</delete>
 	</target>
 
-	<target name="buildAll" description="main build task" depends="clean,buildSrc, api-docs,buildTest, jarAll" />
+	<target name="buildAll" description="main build task" depends="clean,buildSrc, api-docs, jarAll" />
 
 	<!--target name="buildStubs" description="build task" depends="buildSrc">
 		<javac source="${source}" target="${target}" classpathref="test.classpath" srcdir="${stubs.dir}" debug="true" debuglevel="lines,vars,source" destdir="${build.dir.stubs}">

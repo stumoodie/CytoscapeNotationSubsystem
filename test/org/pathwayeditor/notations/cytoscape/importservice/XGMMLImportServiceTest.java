@@ -6,6 +6,7 @@ import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.pathwayeditor.businessobjects.drawingprimitives.IBendPoint;
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
@@ -13,16 +14,15 @@ import org.pathwayeditor.businessobjects.drawingprimitives.ILinkAttribute;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeAttribute;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Alignment;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.figure.geometry.Point;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
+import org.pathwayeditor.figure.geometry.Dimension;
+import org.pathwayeditor.figure.geometry.Point;
 import org.pathwayeditor.notations.cytoscape.CytoscapeNotationSubsystem;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 
 public class XGMMLImportServiceTest {
 	private static final String EXPECTED_SUFFIX = "xgmml";
@@ -35,60 +35,42 @@ public class XGMMLImportServiceTest {
 	private static final String EXPECTED_CODE = "cytoscape_xgmml";
 	private static final int EXPECTED_NUM_NODES = 2;
 	private static final int EXPECTED_NUM_EDGES = 3;
-	private static final int NODE1_ATTRIB_IDX = 1;
-	private static final int NODE2_ATTRIB_IDX = 2;
-	private static final int EDGE1_ATTRIB_IDX = 1;
-	private static final int EDGE2_ATTRIB_IDX = 2;
-	private static final int EDGE3_ATTRIB_IDX = 3;
+	private static final int NODE1_ATTRIB_IDX = 2;
+	private static final int NODE2_ATTRIB_IDX = 3;
+	private static final int EDGE1_ATTRIB_IDX = 4;
+	private static final int EDGE2_ATTRIB_IDX = 7;
+	private static final int EDGE3_ATTRIB_IDX = 10;
 	private static final Point EXPECTED_NODE1_LOCATION = new Point(46, 52); 
 	private static final Dimension EXPECTED_NODE1_SIZE = new Dimension(35, 35);
-	private static final PrimitiveShapeType EXPECTED_NODE1_SHAPE_TYPE = PrimitiveShapeType.OCTAGON;
+	private static final String EXPECTED_NODE1_SHAPE_TYPE = "curbounds oval";
 	private static final RGB EXPECTED_NODE1_FILL_COLOUR = new RGB(0xff, 0x66, 0x66); 
 	private static final RGB EXPECTED_NODE1_LINE_COLOUR = new RGB(0x33, 0x33, 0xff);
 	private static final int EXPECTED_NODE1_LINE_WIDTH = 1; 
 	private static final LineStyle EXPECTED_NODE1_LINE_STYLE = LineStyle.SOLID;
 	private static final String EXPECTED_NODE1_NAME = "59524";
 	private static final String EXPECTED_CANVAS_NAME = "BRCA1_MOUSE_Network";
-	private static final Alignment EXPECTED_NODE1_VERT_ALIGNMENT = Alignment.CENTER;
-	private static final String EXPECTED_NODE1_DETAILED_DESCN = "";
-	private static final String EXPECTED_NODE1_DESCN = "";
-	private static final boolean EXPECTED_NODE1_NAME_VISIBILITY = true;
-	private static final RGB EXPECTED_NODE1_TEXT_COLOUR = new RGB(0, 0, 0);
-	private static final Alignment EXPECTED_NODE1_HORIZ_ALIGNMENT = Alignment.CENTER;
 	private static final Point EXPECTED_NODE2_LOCATION = new Point(-26, 29); 
 	private static final Dimension EXPECTED_NODE2_SIZE = new Dimension(35, 35);
-	private static final PrimitiveShapeType EXPECTED_NODE2_SHAPE_TYPE = PrimitiveShapeType.ELLIPSE;
+	private static final String EXPECTED_NODE2_SHAPE_TYPE = "curbounds oval";
 	private static final RGB EXPECTED_NODE2_FILL_COLOUR = new RGB(0x66, 0x0, 0x66); 
 	private static final RGB EXPECTED_NODE2_LINE_COLOUR = new RGB(0xff, 0xff, 0x0);
 	private static final int EXPECTED_NODE2_LINE_WIDTH = 2; 
 	private static final LineStyle EXPECTED_NODE2_LINE_STYLE = LineStyle.SOLID;
 	private static final String EXPECTED_NODE2_NAME = "60178";
-	private static final Alignment EXPECTED_NODE2_VERT_ALIGNMENT = Alignment.CENTER;
-	private static final String EXPECTED_NODE2_DETAILED_DESCN = "";
-	private static final String EXPECTED_NODE2_DESCN = "";
-	private static final boolean EXPECTED_NODE2_NAME_VISIBILITY = true;
-	private static final RGB EXPECTED_NODE2_TEXT_COLOUR = new RGB(0, 0, 0);
-	private static final Alignment EXPECTED_NODE2_HORIZ_ALIGNMENT = Alignment.CENTER;
 	private static final String EXPECTED_EDGE1_NAME = "";
 	private static final RGB EXPECTED_EDGE1_LINE_COLOUR = new RGB(0x70, 0x30, 0xa0);
 	private static final LineStyle EXPECTED_EDGE1_LINE_STYLE = LineStyle.SOLID;
 	private static final int EXPECTED_EDGE1_LINE_WIDTH = 4;
-	private static final String EXPECTED_EDGE1_DESCN = "";
-	private static final String EXPECTED_EDGE1_DETAILED_DESCN = "";
 	
 	private static final String EXPECTED_EDGE2_NAME = "";
 	private static final RGB EXPECTED_EDGE2_LINE_COLOUR = new RGB(0x0, 0x66, 0x0);
 	private static final LineStyle EXPECTED_EDGE2_LINE_STYLE = LineStyle.DASHED;
 	private static final int EXPECTED_EDGE2_LINE_WIDTH = 1;
-	private static final String EXPECTED_EDGE2_DESCN = "";
-	private static final String EXPECTED_EDGE2_DETAILED_DESCN = "";
 	
 	private static final String EXPECTED_EDGE3_NAME = "";
 	private static final RGB EXPECTED_EDGE3_LINE_COLOUR = new RGB(0x66, 0x0, 0xff);
 	private static final LineStyle EXPECTED_EDGE3_LINE_STYLE = LineStyle.SOLID;
 	private static final int EXPECTED_EDGE3_LINE_WIDTH = 2;
-	private static final String EXPECTED_EDGE3_DESCN = "";
-	private static final String EXPECTED_EDGE3_DETAILED_DESCN = "";
 	private static final LinkEndDecoratorShape EXPECTED_EDGE1_SOURCE_END_DEC = LinkEndDecoratorShape.NONE;
 	private static final LinkEndDecoratorShape EXPECTED_EDGE1_TARGET_END_DEC = LinkEndDecoratorShape.NONE;
 	private static final LinkEndDecoratorShape EXPECTED_EDGE2_SOURCE_END_DEC = LinkEndDecoratorShape.NONE;
@@ -99,17 +81,12 @@ public class XGMMLImportServiceTest {
 	private static final int EXPECTED_NUM_EDGE1_BENDPOINTS = 3;
 	private static final int EXPECTED_NUM_EDGE2_BENDPOINTS = 0;
 	private static final int EXPECTED_EDGE1_BP1 = 0;
-	private static final Point EXPECTED_EDGE1_BP1_LOCATION = new Point(29, 35);
-	private static final Point EXPECTED_EDGE1_BP1_OFFSET1 = new Point(-17, 0);
-	private static final Point EXPECTED_EDGE1_BP1_OFFSET2 = new Point(-34, -17);
+	private static final Point EXPECTED_EDGE1_BP1_LOCATION = new Point(98.5, 69.5);
 	private static final int EXPECTED_EDGE1_BP2 = 1;
-	private static final Point EXPECTED_EDGE1_BP2_LOCATION = new Point(29, 69);
-	private static final Point EXPECTED_EDGE1_BP2_OFFSET1 = new Point(-17, 34);
-	private static final Point EXPECTED_EDGE1_BP2_OFFSET2 = new Point(-34, 17);
+	private static final Point EXPECTED_EDGE1_BP2_LOCATION = new Point(98.5, 104.5);
 	private static final int EXPECTED_EDGE1_BP3 = 2;
-	private static final Point EXPECTED_EDGE1_BP3_LOCATION = new Point(63, 69);
-	private static final Point EXPECTED_EDGE1_BP3_OFFSET1 = new Point(17, 34);
-	private static final Point EXPECTED_EDGE1_BP3_OFFSET2 = new Point(0, 17);
+	private static final Point EXPECTED_EDGE1_BP3_LOCATION = new Point(63.5, 104.5);
+	private static final double DELTA = 0.0001;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -173,18 +150,12 @@ public class XGMMLImportServiceTest {
 		IShapeAttribute actualAttrib = this.testCanvas.getShapeAttribute(NODE1_ATTRIB_IDX);
 		assertEquals("expected location", EXPECTED_NODE1_LOCATION, actualAttrib.getLocation());
 		assertEquals("expected size", EXPECTED_NODE1_SIZE, actualAttrib.getSize());
-		assertEquals("expected name", EXPECTED_NODE1_NAME, actualAttrib.getName());
+		assertEquals("expected name", EXPECTED_NODE1_NAME, actualAttrib.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 		assertEquals("expected fill colour", EXPECTED_NODE1_FILL_COLOUR, actualAttrib.getFillColour());
 		assertEquals("expected line colour", EXPECTED_NODE1_LINE_COLOUR, actualAttrib.getLineColour());
 		assertEquals("expected line style", EXPECTED_NODE1_LINE_STYLE, actualAttrib.getLineStyle());
-		assertEquals("expected line width", EXPECTED_NODE1_LINE_WIDTH, actualAttrib.getLineWidth());
-		assertEquals("expected name horizontal alignment", EXPECTED_NODE1_HORIZ_ALIGNMENT, actualAttrib.getHorizontalAlignment());
-		assertEquals("expected name vertical alignment", EXPECTED_NODE1_VERT_ALIGNMENT, actualAttrib.getVerticalAlignment());
-		assertEquals("expected name visibility", EXPECTED_NODE1_NAME_VISIBILITY, actualAttrib.isNameVisible());
-		assertEquals("expected detailed description", EXPECTED_NODE1_DESCN, actualAttrib.getDescription());
-		assertEquals("expected detailed description", EXPECTED_NODE1_DETAILED_DESCN, actualAttrib.getDetailedDescription());
-		assertEquals("expected text colour", EXPECTED_NODE1_TEXT_COLOUR, actualAttrib.getTextColour());
-		assertEquals("expected shape_type", EXPECTED_NODE1_SHAPE_TYPE, actualAttrib.getPrimitiveShape());
+		assertEquals("expected line width", EXPECTED_NODE1_LINE_WIDTH, actualAttrib.getLineWidth(), DELTA);
+		assertEquals("expected shape_type", EXPECTED_NODE1_SHAPE_TYPE, actualAttrib.getShapeDefinition());
 	}
 	
 	@Test
@@ -195,18 +166,12 @@ public class XGMMLImportServiceTest {
 		IShapeAttribute actualAttrib = this.testCanvas.getShapeAttribute(NODE2_ATTRIB_IDX);
 		assertEquals("expected location", EXPECTED_NODE2_LOCATION, actualAttrib.getLocation());
 		assertEquals("expected size", EXPECTED_NODE2_SIZE, actualAttrib.getSize());
-		assertEquals("expected name", EXPECTED_NODE2_NAME, actualAttrib.getName());
+		assertEquals("expected name", EXPECTED_NODE2_NAME, actualAttrib.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 		assertEquals("expected fill colour", EXPECTED_NODE2_FILL_COLOUR, actualAttrib.getFillColour());
 		assertEquals("expected line colour", EXPECTED_NODE2_LINE_COLOUR, actualAttrib.getLineColour());
 		assertEquals("expected line style", EXPECTED_NODE2_LINE_STYLE, actualAttrib.getLineStyle());
-		assertEquals("expected line width", EXPECTED_NODE2_LINE_WIDTH, actualAttrib.getLineWidth());
-		assertEquals("expected name horizontal alignment", EXPECTED_NODE2_HORIZ_ALIGNMENT, actualAttrib.getHorizontalAlignment());
-		assertEquals("expected name vertical alignment", EXPECTED_NODE2_VERT_ALIGNMENT, actualAttrib.getVerticalAlignment());
-		assertEquals("expected name visibility", EXPECTED_NODE2_NAME_VISIBILITY, actualAttrib.isNameVisible());
-		assertEquals("expected description", EXPECTED_NODE2_DESCN, actualAttrib.getDescription());
-		assertEquals("expected detailed description", EXPECTED_NODE2_DETAILED_DESCN, actualAttrib.getDetailedDescription());
-		assertEquals("expected text colour", EXPECTED_NODE2_TEXT_COLOUR, actualAttrib.getTextColour());
-		assertEquals("expected shape_type", EXPECTED_NODE2_SHAPE_TYPE, actualAttrib.getPrimitiveShape());
+		assertEquals("expected line width", EXPECTED_NODE2_LINE_WIDTH, actualAttrib.getLineWidth(), DELTA);
+		assertEquals("expected shape_type", EXPECTED_NODE2_SHAPE_TYPE, actualAttrib.getShapeDefinition());
 	}
 	
 	@Test
@@ -215,27 +180,27 @@ public class XGMMLImportServiceTest {
 		assertEquals("expected num nodes", EXPECTED_NUM_NODES, testCanvas.getModel().numShapeNodes());
 		assertEquals("expected num nodes", EXPECTED_NUM_EDGES, testCanvas.getModel().numLinkEdges());
 		ILinkAttribute actualAttrib = this.testCanvas.getLinkAttribute(EDGE1_ATTRIB_IDX);
-		assertEquals("expected name", EXPECTED_EDGE1_NAME, actualAttrib.getName());
+		assertEquals("expected name", EXPECTED_EDGE1_NAME, actualAttrib.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 		assertEquals("expected line colour", EXPECTED_EDGE1_LINE_COLOUR, actualAttrib.getLineColor());
 		assertEquals("expected line style", EXPECTED_EDGE1_LINE_STYLE, actualAttrib.getLineStyle());
-		assertEquals("expected line width", EXPECTED_EDGE1_LINE_WIDTH, actualAttrib.getLineWidth());
-		assertEquals("expected description", EXPECTED_EDGE1_DESCN, actualAttrib.getDescription());
-		assertEquals("expected detailed description", EXPECTED_EDGE1_DETAILED_DESCN, actualAttrib.getDetailedDescription());
+		assertEquals("expected line width", EXPECTED_EDGE1_LINE_WIDTH, actualAttrib.getLineWidth(), DELTA);
 		assertEquals("expected source end dec", EXPECTED_EDGE1_SOURCE_END_DEC, actualAttrib.getSourceTerminus().getEndDecoratorType());
 		assertEquals("expected target end dec", EXPECTED_EDGE1_TARGET_END_DEC, actualAttrib.getTargetTerminus().getEndDecoratorType());
 		assertEquals("expected num bend points", EXPECTED_NUM_EDGE1_BENDPOINTS, actualAttrib.numBendPoints());
+	}
+	
+
+	@Ignore
+	@Test
+	public final void testEdge1SelfEdge() throws Exception{
+		this.testInstance.importToCanvas(TEST_INPUT_FILE, testCanvas);
+		ILinkAttribute actualAttrib = this.testCanvas.getLinkAttribute(EDGE1_ATTRIB_IDX);
 		IBendPoint actualBp1 = actualAttrib.getBendPoint(EXPECTED_EDGE1_BP1);
 		assertEquals("bend point 1 location", EXPECTED_EDGE1_BP1_LOCATION, actualBp1.getLocation());
-		assertEquals("bend point 1 source offset", EXPECTED_EDGE1_BP1_OFFSET1, actualBp1.getFirstRelativeDimension());
-		assertEquals("bend point 1 target offset", EXPECTED_EDGE1_BP1_OFFSET2, actualBp1.getSecondRelativeDimension());
 		IBendPoint actualBp2 = actualAttrib.getBendPoint(EXPECTED_EDGE1_BP2);
 		assertEquals("bend point 2 location", EXPECTED_EDGE1_BP2_LOCATION, actualBp2.getLocation());
-		assertEquals("bend point 2 source offset", EXPECTED_EDGE1_BP2_OFFSET1, actualBp2.getFirstRelativeDimension());
-		assertEquals("bend point 2 target offset", EXPECTED_EDGE1_BP2_OFFSET2, actualBp2.getSecondRelativeDimension());
 		IBendPoint actualBp3 = actualAttrib.getBendPoint(EXPECTED_EDGE1_BP3);
 		assertEquals("bend point 3 location", EXPECTED_EDGE1_BP3_LOCATION, actualBp3.getLocation());
-		assertEquals("bend point 3 source offset", EXPECTED_EDGE1_BP3_OFFSET1, actualBp3.getFirstRelativeDimension());
-		assertEquals("bend point 3 target offset", EXPECTED_EDGE1_BP3_OFFSET2, actualBp3.getSecondRelativeDimension());
 	}
 	
 	@Test
@@ -244,12 +209,10 @@ public class XGMMLImportServiceTest {
 		assertEquals("expected num nodes", EXPECTED_NUM_NODES, testCanvas.getModel().numShapeNodes());
 		assertEquals("expected num nodes", EXPECTED_NUM_EDGES, testCanvas.getModel().numLinkEdges());
 		ILinkAttribute actualAttrib = this.testCanvas.getLinkAttribute(EDGE2_ATTRIB_IDX);
-		assertEquals("expected name", EXPECTED_EDGE2_NAME, actualAttrib.getName());
+		assertEquals("expected name", EXPECTED_EDGE2_NAME, actualAttrib.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 		assertEquals("expected line colour", EXPECTED_EDGE2_LINE_COLOUR, actualAttrib.getLineColor());
 		assertEquals("expected line style", EXPECTED_EDGE2_LINE_STYLE, actualAttrib.getLineStyle());
-		assertEquals("expected line width", EXPECTED_EDGE2_LINE_WIDTH, actualAttrib.getLineWidth());
-		assertEquals("expected description", EXPECTED_EDGE2_DESCN, actualAttrib.getDescription());
-		assertEquals("expected detailed description", EXPECTED_EDGE2_DETAILED_DESCN, actualAttrib.getDetailedDescription());
+		assertEquals("expected line width", EXPECTED_EDGE2_LINE_WIDTH, actualAttrib.getLineWidth(), DELTA);
 		assertEquals("expected source end dec", EXPECTED_EDGE2_SOURCE_END_DEC, actualAttrib.getSourceTerminus().getEndDecoratorType());
 		assertEquals("expected target end dec", EXPECTED_EDGE2_TARGET_END_DEC, actualAttrib.getTargetTerminus().getEndDecoratorType());
 		assertEquals("expected num bend points", EXPECTED_NUM_EDGE2_BENDPOINTS, actualAttrib.numBendPoints());
@@ -261,12 +224,10 @@ public class XGMMLImportServiceTest {
 		assertEquals("expected num nodes", EXPECTED_NUM_NODES, testCanvas.getModel().numShapeNodes());
 		assertEquals("expected num nodes", EXPECTED_NUM_EDGES, testCanvas.getModel().numLinkEdges());
 		ILinkAttribute actualAttrib = this.testCanvas.getLinkAttribute(EDGE3_ATTRIB_IDX);
-		assertEquals("expected name", EXPECTED_EDGE3_NAME, actualAttrib.getName());
+		assertEquals("expected name", EXPECTED_EDGE3_NAME, actualAttrib.getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 		assertEquals("expected line colour", EXPECTED_EDGE3_LINE_COLOUR, actualAttrib.getLineColor());
 		assertEquals("expected line style", EXPECTED_EDGE3_LINE_STYLE, actualAttrib.getLineStyle());
-		assertEquals("expected line width", EXPECTED_EDGE3_LINE_WIDTH, actualAttrib.getLineWidth());
-		assertEquals("expected detailed description", EXPECTED_EDGE3_DESCN, actualAttrib.getDescription());
-		assertEquals("expected detailed description", EXPECTED_EDGE3_DETAILED_DESCN, actualAttrib.getDetailedDescription());
+		assertEquals("expected line width", EXPECTED_EDGE3_LINE_WIDTH, actualAttrib.getLineWidth(), DELTA);
 		assertEquals("expected source end dec", EXPECTED_EDGE3_SOURCE_END_DEC, actualAttrib.getSourceTerminus().getEndDecoratorType());
 		assertEquals("expected target end dec", EXPECTED_EDGE3_TARGET_END_DEC, actualAttrib.getTargetTerminus().getEndDecoratorType());
 		assertEquals("expected num bend points", EXPECTED_NUM_EDGE3_BENDPOINTS, actualAttrib.numBendPoints());

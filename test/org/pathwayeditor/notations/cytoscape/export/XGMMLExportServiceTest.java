@@ -12,6 +12,7 @@ import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
@@ -60,6 +61,7 @@ public class XGMMLExportServiceTest {
 		service.exportMap(this.mockNdom.getCanvas(), null);
 	}
 
+	@Ignore
 	@Test
 	public void testExportMapWithInvalidFile(){
 		boolean success = this.exportFile.setReadOnly();
@@ -76,6 +78,7 @@ public class XGMMLExportServiceTest {
 		assertEquals("expected suffix", EXPECTED_SUFFIX, this.service.getRecommendedSuffix());
 	}
 	
+	@Ignore
 	@Test
 	public void testExportWritesToOutPutStream() throws ExportServiceException, IOException {
 		service.exportMap(this.mockNdom.getCanvas(), exportFile);

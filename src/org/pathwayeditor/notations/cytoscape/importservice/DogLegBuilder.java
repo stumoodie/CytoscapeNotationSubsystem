@@ -23,9 +23,10 @@ public class DogLegBuilder {
 	public void buildDogLeg(){
 		calculateOffset();
 		calculateAnchorPoints();
-		createBendPoint(-1, 0);
-		createBendPoint(-1, 2);
-		createBendPoint(1, 2);
+		selfEdge.getAttribute().makeSelfBendPoints(srcAnchorPoint, tgtAnchorPoint);
+//		createBendPoint(-1, 0);
+//		createBendPoint(-1, 2);
+//		createBendPoint(1, 2);
 	}
 
 	private void calculateOffset() {
@@ -40,13 +41,11 @@ public class DogLegBuilder {
 	 * @param i the number of units of 0.5 * the width of the shape to offset the bendpoint. This value can be negative. 
 	 * @param j the number of units of 0.5 * the height of the shape to offset the bendpoint. This value can be negative.
 	 */
-	private void createBendPoint(int i, int j) {
-		int xoffset = i * this.horizontalOffset;
-		int yoffset = j * this.verticalOffset;
-		final Point bp1Translation = new Point(xoffset, yoffset);
-		final Point newBp1 = srcAnchorPoint.translate(bp1Translation);
-		this.selfEdge.getAttribute().createNewBendPoint(newBp1, bp1Translation, newBp1.difference(this.tgtAnchorPoint));
-	}
+//	private void createBendPoint(double i, double j) {
+//		double xoffset = i * this.horizontalOffset;
+//		double yoffset = j * this.verticalOffset;
+//		this.selfEdge.getAttribute().createNewBendPoint(newBp1, bp1Translation, newBp1.difference(this.tgtAnchorPoint));
+//	}
 
 	private void calculateAnchorPoints() {
 		Point nodeLocation = selfEdge.getSourceShape().getAttribute().getLocation();

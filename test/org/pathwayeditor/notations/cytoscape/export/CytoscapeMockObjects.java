@@ -12,17 +12,17 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.figure.geometry.Point;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.figure.geometry.Dimension;
 
 
 public class CytoscapeMockObjects {
+	private static final String SHAPE_DEFN = "curbounds rect";
 	private static final String NODE1_NAME = "node1";
 	private static final Point NODE1_LOCATION = new Point(10, 11);
 	private static final Dimension NODE1_SIZE = new Dimension(12, 13);
 	private static final int NODE1_WIDTH = 1;
-	private static final PrimitiveShapeType NODE1_SHAPE_TYPE = PrimitiveShapeType.ELLIPSE;
+	private static final String NODE1_SHAPE_TYPE = SHAPE_DEFN;
 	private static final String NODE1_DESCRIPTION = "Node1 Descn";
 	private static final RGB NODE1_LINE_COLOUR = new RGB(255, 0, 0);
 	private static final RGB NODE1_FILL_COLOUR = new RGB(0, 0, 0);
@@ -30,7 +30,7 @@ public class CytoscapeMockObjects {
 	private static final Point NODE2_LOCATION = new Point(20, 21);
 	private static final Dimension NODE2_SIZE = new Dimension(13, 15);
 	private static final int NODE2_WIDTH = 2;
-	private static final PrimitiveShapeType NODE2_SHAPE_TYPE = PrimitiveShapeType.HEXAGON;
+	private static final String NODE2_SHAPE_TYPE = SHAPE_DEFN;
 	private static final String NODE2_DESCRIPTION = "Node2 Descn";
 	private static final RGB NODE2_LINE_COLOUR = new RGB(0, 255, 0);
 	private static final RGB NODE2_FILL_COLOUR = new RGB(25, 25, 25);
@@ -38,7 +38,7 @@ public class CytoscapeMockObjects {
 	private static final Point NODE3_LOCATION = new Point(30, 31);
 	private static final Dimension NODE3_SIZE = new Dimension(17, 16);
 	private static final int NODE3_WIDTH = 3;
-	private static final PrimitiveShapeType NODE3_SHAPE_TYPE = PrimitiveShapeType.UP_CHEVRON;
+	private static final String NODE3_SHAPE_TYPE = SHAPE_DEFN;
 	private static final String NODE3_DESCRIPTION = "Node3 Descn";
 	private static final RGB NODE3_LINE_COLOUR = new RGB(0, 0, 255);
 	private static final RGB NODE3_FILL_COLOUR = new RGB(125, 125, 125);
@@ -133,30 +133,21 @@ public class CytoscapeMockObjects {
 			allowing(mockShapeNode3).getAttribute(); will(returnValue(mockShapeAttribute3));
 			allowing(mockShapeNode3).getIndex(); will(returnValue(NODE3_IDX));
 			
-			allowing(mockShapeAttribute1).getName(); will(returnValue(NODE1_NAME));
 			allowing(mockShapeAttribute1).getLocation(); will(returnValue(NODE1_LOCATION));
 			allowing(mockShapeAttribute1).getSize(); will(returnValue(NODE1_SIZE));
 			allowing(mockShapeAttribute1).getLineWidth(); will(returnValue(NODE1_WIDTH));
-			allowing(mockShapeAttribute1).getPrimitiveShape(); will(returnValue(NODE1_SHAPE_TYPE));
-			allowing(mockShapeAttribute1).getDescription(); will(returnValue(NODE1_DESCRIPTION));
 			allowing(mockShapeAttribute1).getLineColour(); will(returnValue(NODE1_LINE_COLOUR));
 			allowing(mockShapeAttribute1).getFillColour(); will(returnValue(NODE1_FILL_COLOUR));
 			
-			allowing(mockShapeAttribute2).getName(); will(returnValue(NODE2_NAME));
 			allowing(mockShapeAttribute2).getLocation(); will(returnValue(NODE2_LOCATION));
 			allowing(mockShapeAttribute2).getSize(); will(returnValue(NODE2_SIZE));
 			allowing(mockShapeAttribute2).getLineWidth(); will(returnValue(NODE2_WIDTH));
-			allowing(mockShapeAttribute2).getPrimitiveShape(); will(returnValue(NODE2_SHAPE_TYPE));
-			allowing(mockShapeAttribute2).getDescription(); will(returnValue(NODE2_DESCRIPTION));
 			allowing(mockShapeAttribute2).getLineColour(); will(returnValue(NODE2_LINE_COLOUR));
 			allowing(mockShapeAttribute2).getFillColour(); will(returnValue(NODE2_FILL_COLOUR));
 			
-			allowing(mockShapeAttribute3).getName(); will(returnValue(NODE3_NAME));
 			allowing(mockShapeAttribute3).getLocation(); will(returnValue(NODE3_LOCATION));
 			allowing(mockShapeAttribute3).getSize(); will(returnValue(NODE3_SIZE));
 			allowing(mockShapeAttribute3).getLineWidth(); will(returnValue(NODE3_WIDTH));
-			allowing(mockShapeAttribute3).getPrimitiveShape(); will(returnValue(NODE3_SHAPE_TYPE));
-			allowing(mockShapeAttribute3).getDescription(); will(returnValue(NODE3_DESCRIPTION));
 			allowing(mockShapeAttribute3).getLineColour(); will(returnValue(NODE3_LINE_COLOUR));
 			allowing(mockShapeAttribute3).getFillColour(); will(returnValue(NODE3_FILL_COLOUR));
 
@@ -175,8 +166,6 @@ public class CytoscapeMockObjects {
 			allowing(mockLinkEdge3).getSourceShape(); will(returnValue(mockShapeNode3));
 			allowing(mockLinkEdge3).getTargetShape(); will(returnValue(mockShapeNode2));
 			
-			allowing(mockLinkAttribute1).getName(); will(returnValue(EDGE1_NAME));
-			allowing(mockLinkAttribute1).getDescription(); will(returnValue(EDGE1_DESCRIPTION));
 			allowing(mockLinkAttribute1).getLineStyle(); will(returnValue(EDGE1_LINE_STYLE));
 			allowing(mockLinkAttribute1).getLineColor(); will(returnValue(EDGE1_LINE_COLOUR));
 			allowing(mockLinkAttribute1).getLineWidth(); will(returnValue(EDGE1_LINE_WIDTH));
@@ -187,8 +176,6 @@ public class CytoscapeMockObjects {
 			
 			allowing(mockLink1Target).getEndDecoratorType(); will(returnValue(EDGE1_TARGET_DEC_TYPE));
 			
-			allowing(mockLinkAttribute2).getName(); will(returnValue(EDGE2_NAME));
-			allowing(mockLinkAttribute2).getDescription(); will(returnValue(EDGE2_DESCRIPTION));
 			allowing(mockLinkAttribute2).getLineStyle(); will(returnValue(EDGE2_LINE_STYLE));
 			allowing(mockLinkAttribute2).getLineColor(); will(returnValue(EDGE2_LINE_COLOUR));
 			allowing(mockLinkAttribute2).getLineWidth(); will(returnValue(EDGE2_LINE_WIDTH));
@@ -199,8 +186,6 @@ public class CytoscapeMockObjects {
 			
 			allowing(mockLink2Target).getEndDecoratorType(); will(returnValue(EDGE2_TARGET_DEC_TYPE));
 			
-			allowing(mockLinkAttribute3).getName(); will(returnValue(EDGE3_NAME));
-			allowing(mockLinkAttribute3).getDescription(); will(returnValue(EDGE3_DESCRIPTION));
 			allowing(mockLinkAttribute3).getLineStyle(); will(returnValue(EDGE3_LINE_STYLE));
 			allowing(mockLinkAttribute3).getLineColor(); will(returnValue(EDGE3_LINE_COLOUR));
 			allowing(mockLinkAttribute3).getLineWidth(); will(returnValue(EDGE3_LINE_WIDTH));

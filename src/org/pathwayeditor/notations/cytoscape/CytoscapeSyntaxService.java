@@ -11,13 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.ConnectionRouter;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LabelLocationPolicy;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.figure.geometry.Dimension;
-import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
@@ -28,14 +25,12 @@ import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
-import org.pathwayeditor.notationsubsystem.toolkit.definition.FormattedTextPropertyDefinition;
+import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
-import org.pathwayeditor.notationsubsystem.toolkit.definition.NumberPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.PlainTextPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.RootObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.ShapeObjectType;
-import org.pathwayeditor.notationsubsystem.toolkit.definition.TextPropertyDefinition;
 
 public class CytoscapeSyntaxService implements INotationSyntaxService {
     public static final int ROOT_UID = 0;
@@ -46,47 +41,56 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     private static final String EDGE_NAME = "edge";
     private static final String EDGE_DESCN = "edge";
 	private static final int NUM_ROOT_OTS = 1;
+	private static final String NODE_DEFN = "curbounds oval (C) setanchor";
+	private static final String NAME_PROP_VAL = "Node";
+	public static final String NODE_NAME_PROP = "name";
+	private static final String NODE_NAME_PROP_DISPLAY = "Name";
+	private static final String INTERACTS_PROP_VAL = "";
+	private static final String INTERACTS_PROP = "interacts";
+	public static final String EDGE_NAME_PROP = "name";
+	private static final String EDGE_PROP_VAL = "Edge";
+	private static final String EDGE_NAME_PROP_DISPLAY = "Name";
 
-    private static IPropertyDefinition reassignVal(IPropertyDefinition prop,
-            String val, boolean isEdit, boolean isVis) {
-        if (prop instanceof TextPropertyDefinition)
-            return reassignVal((TextPropertyDefinition) prop, val, isEdit,
-                    isVis);
-        if (prop instanceof FormattedTextPropertyDefinition)
-            return reassignVal((FormattedTextPropertyDefinition) prop, val,
-                    isEdit, isVis);
-        if (prop instanceof NumberPropertyDefinition)
-            return reassignVal((NumberPropertyDefinition) prop, val, isEdit,
-                    isVis);
-        return prop;
-    }
+//    private static IPropertyDefinition reassignVal(IPropertyDefinition prop,
+//            String val, boolean isEdit, boolean isVis) {
+//        if (prop instanceof TextPropertyDefinition)
+//            return reassignVal((TextPropertyDefinition) prop, val, isEdit,
+//                    isVis);
+//        if (prop instanceof FormattedTextPropertyDefinition)
+//            return reassignVal((FormattedTextPropertyDefinition) prop, val,
+//                    isEdit, isVis);
+//        if (prop instanceof NumberPropertyDefinition)
+//            return reassignVal((NumberPropertyDefinition) prop, val, isEdit,
+//                    isVis);
+//        return prop;
+//    }
+//
+//    private static TextPropertyDefinition reassignVal(
+//            TextPropertyDefinition prop, String val, boolean isEdit,
+//            boolean isVis) {
+//        TextPropertyDefinition newP = new PlainTextPropertyDefinition(prop
+//                .getName(), val, (prop.isVisualisable() | isVis), (prop
+//                .isEditable() & isEdit));
+//        return newP;
+//    }
 
-    private static TextPropertyDefinition reassignVal(
-            TextPropertyDefinition prop, String val, boolean isEdit,
-            boolean isVis) {
-        TextPropertyDefinition newP = new PlainTextPropertyDefinition(prop
-                .getName(), val, (prop.isVisualisable() | isVis), (prop
-                .isEditable() & isEdit));
-        return newP;
-    }
+//    private static FormattedTextPropertyDefinition reassignVal(
+//            FormattedTextPropertyDefinition prop, String val, boolean isEdit,
+//            boolean isVis) {
+//        FormattedTextPropertyDefinition newP = new FormattedTextPropertyDefinition(
+//                prop.getName(), val, (prop.isVisualisable() | isVis), (prop
+//                        .isEditable() & isEdit));
+//        return newP;
+//    }
 
-    private static FormattedTextPropertyDefinition reassignVal(
-            FormattedTextPropertyDefinition prop, String val, boolean isEdit,
-            boolean isVis) {
-        FormattedTextPropertyDefinition newP = new FormattedTextPropertyDefinition(
-                prop.getName(), val, (prop.isVisualisable() | isVis), (prop
-                        .isEditable() & isEdit));
-        return newP;
-    }
-
-    private static NumberPropertyDefinition reassignVal(
-            NumberPropertyDefinition prop, String val, boolean isEdit,
-            boolean isVis) {
-        NumberPropertyDefinition newP = new NumberPropertyDefinition(prop
-                .getName(), val, (prop.isVisualisable() | isVis), (prop
-                .isEditable() & isEdit));
-        return newP;
-    }
+//    private static NumberPropertyDefinition reassignVal(
+//            NumberPropertyDefinition prop, String val, boolean isEdit,
+//            boolean isVis) {
+//        NumberPropertyDefinition newP = new NumberPropertyDefinition(prop
+//                .getName(), val, (prop.isVisualisable() | isVis), (prop
+//                .isEditable() & isEdit));
+//        return newP;
+//    }
 
     private final Map<Integer, IShapeObjectType> shapeSet = new HashMap<Integer, IShapeObjectType>();
     private final Map<Integer, ILinkObjectType> linkSet = new HashMap<Integer, ILinkObjectType>();
@@ -133,16 +137,12 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
     private void createNode() {
         this.node = new ShapeObjectType(this, NODE_UID, NODE_NAME);
         this.node.setDescription(NODE_DESCN);
-        this.node.getDefaultAttributes().setDescription("");
-        this.node.getDefaultAttributes().setDetailedDescription("");
-        this.node.getDefaultAttributes().setName("");
-        this.node.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);
+        this.node.getDefaultAttributes().setShapeDefinition(NODE_DEFN);
         this.node.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
         this.node.getDefaultAttributes().setSize(new Dimension(50, 50));
         this.node.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
         this.node.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
         this.node.getDefaultAttributes().setLineWidth(1);
-        this.node.getDefaultAttributes().setUrl("");
         EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
         editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
         editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
@@ -151,6 +151,13 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
         editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
         this.node.setEditableAttributes(editableAttributes);
+        PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition(NODE_NAME_PROP, NAME_PROP_VAL);
+        nameProp.setDisplayName(NODE_NAME_PROP_DISPLAY);
+        nameProp.setAlwaysDisplayed(true);
+        nameProp.setEditable(true);
+        nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
+        this.node.getDefaultAttributes().addPropertyDefinition(nameProp);
+        
     }
 
     private void defineParentingNode() {
@@ -165,22 +172,26 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         this.edge = new LinkObjectType(this, EDGE_UID, EDGE_NAME);
         this.edge.setDescription(EDGE_DESCN);
         
-        this.edge.getDefaultAttributes().setDescription("");
-        this.edge.getDefaultAttributes().setDetailedDescription("");
         this.edge.getDefaultAttributes().setLineColour(new RGB(0, 0, 0));
         this.edge.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
         this.edge.getDefaultAttributes().setLineWidth(1);
-        this.edge.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
-        this.edge.getDefaultAttributes().setName("");
-        this.edge.getDefaultAttributes().setUrl("");
         EnumSet<LinkEditableAttributes> editableAttribute = EnumSet
                 .noneOf(LinkEditableAttributes.class);
         editableAttribute.add(LinkEditableAttributes.COLOUR);
         editableAttribute.add(LinkEditableAttributes.LINE_STYLE);
         editableAttribute.add(LinkEditableAttributes.LINE_WIDTH);
-        IPropertyDefinition Interacts = reassignVal(getPropInteracts(), " ",
-                true, false);
-        edge.getDefaultAttributes().addPropertyDefinition(Interacts);
+        PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition(EDGE_NAME_PROP, EDGE_PROP_VAL);
+        nameProp.setDisplayName(EDGE_NAME_PROP_DISPLAY);
+        nameProp.setAlwaysDisplayed(false);
+        nameProp.setVisualisable(true);
+        nameProp.setEditable(true);
+        nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
+        this.edge.getDefaultAttributes().addPropertyDefinition(nameProp);
+        PlainTextPropertyDefinition interactsProp = new PlainTextPropertyDefinition(INTERACTS_PROP, INTERACTS_PROP_VAL);
+        interactsProp.setAlwaysDisplayed(false);
+        interactsProp.setEditable(true);
+        interactsProp.setVisualisable(false);
+        edge.getDefaultAttributes().addPropertyDefinition(interactsProp);
 
         LinkTerminusDefinition sport = this.edge.getSourceTerminusDefinition();
         sport.getDefaultAttributes().setGap((short) 0);// to set default
@@ -188,10 +199,6 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         sport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
-        sport.getDefaultAttributes().setTermDecoratorType(
-                PrimitiveShapeType.RECTANGLE);
-        sport.getDefaultAttributes().setTermSize(new Dimension(0, 0));
-        sport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> srcEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);
         srcEditableAttribute
@@ -205,10 +212,6 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         tport.getDefaultAttributes().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
-        tport.getDefaultAttributes().setTermDecoratorType(
-                PrimitiveShapeType.RECTANGLE);
-        tport.getDefaultAttributes().setTermSize(new Dimension(0, 0));
-        tport.getDefaultAttributes().setTermColour(new RGB(255, 255, 255));
         EnumSet<LinkTermEditableAttributes> tgtEditableAttribute = EnumSet
                 .noneOf(LinkTermEditableAttributes.class);
         tgtEditableAttribute
@@ -221,12 +224,6 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
 
     public LinkObjectType getEdge() {
         return this.edge;
-    }
-
-    private IPropertyDefinition getPropInteracts() {
-        IPropertyDefinition Interacts = new PlainTextPropertyDefinition(
-                "interacts", " ", true, true);
-        return Interacts;
     }
 
     public boolean containsLinkObjectType(int uniqueId) {

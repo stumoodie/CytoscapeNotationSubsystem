@@ -1,7 +1,6 @@
 package org.pathwayeditor.notations.cytoscape.export;
 
 import giny.view.EdgeView;
-import giny.view.NodeView;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -10,7 +9,6 @@ import java.awt.Stroke;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 
 public class CytoscapeAttributeMapper {
@@ -33,58 +31,6 @@ public class CytoscapeAttributeMapper {
 	
 	private CytoscapeAttributeMapper(){
 		
-	}
-	
-	public int getCytoscapeShape(PrimitiveShapeType shapeType){
-		int retVal = NodeView.ELLIPSE; // this is the default
-		if(shapeType == PrimitiveShapeType.ELLIPSE){
-			retVal = NodeView.ELLIPSE;
-		}
-		else if (shapeType == PrimitiveShapeType.HEXAGON){
-			retVal = NodeView.HEXAGON;
-		}
-		else if (shapeType == PrimitiveShapeType.OCTAGON){
-			retVal = NodeView.OCTAGON;
-		}
-		else if (shapeType == PrimitiveShapeType.RH_PARALLELOGRAM){
-			retVal = NodeView.PARALELLOGRAM;
-		}
-		else if (shapeType == PrimitiveShapeType.RECTANGLE){
-			retVal = NodeView.RECTANGLE;
-		}
-		else if (shapeType == PrimitiveShapeType.ROUNDED_RECTANGLE){
-			retVal = NodeView.ROUNDED_RECTANGLE;
-		}
-		else if (shapeType == PrimitiveShapeType.TRIANGLE){
-			retVal = NodeView.TRIANGLE;
-		}
-		return retVal;
-	}
-	
-	public PrimitiveShapeType getPrimitiveShapeType(int shapeType){
-		PrimitiveShapeType retVal = PrimitiveShapeType.ELLIPSE; // this is the default
-		if(shapeType == NodeView.ELLIPSE){
-			retVal = PrimitiveShapeType.ELLIPSE;
-		}
-		else if (shapeType == NodeView.HEXAGON){
-			retVal = PrimitiveShapeType.HEXAGON;
-		}
-		else if (shapeType == NodeView.OCTAGON){
-			retVal = PrimitiveShapeType.OCTAGON;
-		}
-		else if (shapeType == NodeView.PARALELLOGRAM){
-			retVal = PrimitiveShapeType.RH_PARALLELOGRAM;
-		}
-		else if (shapeType == NodeView.RECTANGLE){
-			retVal = PrimitiveShapeType.RECTANGLE;
-		}
-		else if (shapeType == NodeView.ROUNDED_RECTANGLE){
-			retVal = PrimitiveShapeType.ROUNDED_RECTANGLE;
-		}
-		else if (shapeType == NodeView.TRIANGLE){
-			retVal = PrimitiveShapeType.TRIANGLE;
-		}
-		return retVal;
 	}
 	
 	public Paint getPaintFromColour(RGB colour){

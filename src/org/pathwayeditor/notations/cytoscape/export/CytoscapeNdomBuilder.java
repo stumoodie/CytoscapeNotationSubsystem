@@ -11,6 +11,7 @@ import java.util.Map;
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
+import org.pathwayeditor.notations.cytoscape.CytoscapeSyntaxService;
 
 import cytoscape.CyNetwork;
 import cytoscape.CyNode;
@@ -60,8 +61,7 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 			nodeView.setHeight(node.getAttribute().getSize().getHeight());
 			nodeView.setWidth(node.getAttribute().getSize().getWidth());
 			nodeView.setBorderWidth(convertLineWidth(node.getAttribute().getLineWidth()));
-			nodeView.setShape(CytoscapeAttributeMapper.getInstance().getCytoscapeShape(node.getAttribute().getPrimitiveShape()));
-			nodeView.setToolTip(node.getAttribute().getDescription());
+			nodeView.setShape(NodeView.ELLIPSE);
 			nodeView.setBorderPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(node.getAttribute().getLineColour()));
 			nodeView.setUnselectedPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(node.getAttribute().getFillColour()));
 		}
@@ -81,7 +81,6 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 			EdgeView edgeView = localView.getEdgeView(cyEdgeIdx);
 			edgeView.setLineType(EdgeView.STRAIGHT_LINES);
 			edgeView.setStrokeWidth(convertLineWidth(edge.getAttribute().getLineWidth()));
-			edgeView.setToolTip(edge.getAttribute().getDescription());
 			edgeView.setUnselectedPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(edge.getAttribute().getLineColor()));
 			edgeView.setSourceEdgeEnd(CytoscapeAttributeMapper.getInstance().getEndShapeFrom(edge.getAttribute().getSourceTerminus().getEndDecoratorType()));
 			edgeView.setSourceEdgeEndPaint(CytoscapeAttributeMapper.getInstance().getPaintFromColour(edge.getAttribute().getLineColor()));
@@ -98,7 +97,7 @@ public class CytoscapeNdomBuilder implements INdomBuilder {
 			int idx = node.getIndex();
 			int newNodeIdx = rootGraph.createNode();
 			CyNode cyNode = (CyNode) rootGraph.getNode(newNodeIdx);
-			cyNode.setIdentifier(node.getAttribute().getName());
+			cyNode.setIdentifier(node.getAttribute().getProperty(CytoscapeSyntaxService.NODE_NAME_PROP).getValue().toString());
 
 //			// create the CANONICAL_NAME attribute
 //			if (getNodeAttributes().getStringAttribute(nodeID, Semantics.CANONICAL_NAME) == null) {

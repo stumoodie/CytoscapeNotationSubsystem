@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
+	<classpathentry excluding="org/pathwayeditor/notations/cytoscape/validation/CytoscapeValidatorTest.java" kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/CompoundGraph/CompoundGraph.jar" sourcepath="libs/CompoundGraph/CompoundGraph-src.jar">
 		<attributes>
