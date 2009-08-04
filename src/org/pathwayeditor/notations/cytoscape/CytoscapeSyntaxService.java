@@ -45,8 +45,8 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
 	private static final String NAME_PROP_VAL = "Node";
 	public static final String NODE_NAME_PROP = "name";
 	private static final String NODE_NAME_PROP_DISPLAY = "Name";
-	private static final String INTERACTS_PROP_VAL = "";
-	private static final String INTERACTS_PROP = "interacts";
+//	private static final String INTERACTS_PROP_VAL = "";
+//	private static final String INTERACTS_PROP = "interacts";
 	public static final String EDGE_NAME_PROP = "name";
 	private static final String EDGE_PROP_VAL = "Edge";
 	private static final String EDGE_NAME_PROP_DISPLAY = "Name";
@@ -187,11 +187,11 @@ public class CytoscapeSyntaxService implements INotationSyntaxService {
         nameProp.setEditable(true);
         nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
         this.edge.getDefaultAttributes().addPropertyDefinition(nameProp);
-        PlainTextPropertyDefinition interactsProp = new PlainTextPropertyDefinition(INTERACTS_PROP, INTERACTS_PROP_VAL);
-        interactsProp.setAlwaysDisplayed(false);
-        interactsProp.setEditable(true);
-        interactsProp.setVisualisable(false);
-        edge.getDefaultAttributes().addPropertyDefinition(interactsProp);
+//        PlainTextPropertyDefinition interactsProp = new PlainTextPropertyDefinition(INTERACTS_PROP, INTERACTS_PROP_VAL);
+//        interactsProp.setAlwaysDisplayed(false);
+//        interactsProp.setEditable(true);
+//        interactsProp.setVisualisable(false);
+//        edge.getDefaultAttributes().addPropertyDefinition(interactsProp);
 
         LinkTerminusDefinition sport = this.edge.getSourceTerminusDefinition();
         sport.getDefaultAttributes().setGap((short) 0);// to set default
