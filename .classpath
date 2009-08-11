@@ -60,6 +60,6 @@
 	<classpathentry kind="lib" path="libs/log4j/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/biojava-1.4.jar"/>
 	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/undo.support.jar"/>
-	<classpathentry kind="lib" path="/Cytoscape/cytoscape.jar" sourcepath="/Cytoscape/src"/>
+	<classpathentry kind="lib" path="libs/Cytoscape-2.6.1/cytoscape.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
